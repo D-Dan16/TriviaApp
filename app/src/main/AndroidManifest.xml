@@ -12,6 +12,45 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.TriviaApp">
         <activity
+                android:name=".UserProperties"
+                android:exported="false" />
+        <activity
+                android:name=".TopScores"
+                android:exported="false" />
+        <activity
+                android:name=".Register"
+                android:exported="false" />
+        <activity
+                android:name=".Question"
+                android:exported="false" />
+        <activity
+                android:name=".mySettingsScreen"
+                android:exported="false" />
+        <activity
+                android:name=".MusicService"
+                android:exported="false" />
+        <activity
+                android:name=".IncomingCallReceiver"
+                android:exported="false" />
+        <activity
+                android:name=".HelperDB"
+                android:exported="false" />
+        <activity
+                android:name=".GameOver"
+                android:exported="false" />
+        <activity
+                android:name=".Game"
+                android:exported="false" />
+        <activity
+                android:name=".ExpIntro"
+                android:exported="false" />
+        <activity
+                android:name=".EditUserProperties"
+                android:exported="false" />
+        <activity
+                android:name=".AboutThisApplication"
+                android:exported="false" />
+        <activity
                 android:name=".MainActivity"
                 android:exported="true">
             <intent-filter>
