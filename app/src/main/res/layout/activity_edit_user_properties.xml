@@ -7,4 +7,93 @@
         android:layout_height="match_parent"
         tools:context=".EditUserProperties">
 
+    <ScrollView
+            android:layout_width="409dp"
+            android:layout_height="729dp"
+            tools:layout_editor_absoluteY="1dp"
+            tools:layout_editor_absoluteX="1dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="25dp">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/userQuestions">
+
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView" />
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="Name"
+                        android:ems="10"
+                        android:id="@+id/etFirstName" />
+
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView2" />
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="Name"
+                        android:ems="10"
+                        android:id="@+id/etFirstName2" />
+
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView3" />
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="Name"
+                        android:ems="10"
+                        android:id="@+id/etFirstName3" />
+
+                <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView4" />
+
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="Name"
+                        android:ems="10"
+                        android:id="@+id/etFirstName4" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
