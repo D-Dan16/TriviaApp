@@ -8,10 +8,16 @@
         tools:context=".EditUserProperties">
 
     <ScrollView
-            android:layout_width="409dp"
-            android:layout_height="729dp"
-            tools:layout_editor_absoluteY="1dp"
-            tools:layout_editor_absoluteX="1dp">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -19,81 +25,242 @@
                 android:orientation="vertical"
                 android:padding="25dp">
 
+            <TextView
+                    android:text="Edit User Properties"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView5"
+                    style="@style/HeaderTextStyle"
+                    tools:ignore="HardcodedText" />
+
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/userQuestions">
+                    android:id="@+id/userQuestions"
+                    android:gravity="center_horizontal">
 
                 <TextView
-                        android:text="TextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView" />
-
-                <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
                         android:text="Name"
-                        android:ems="10"
-                        android:id="@+id/etFirstName" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView"
+                        style="@style/SecondaryHeaderTextStyle"
+                        tools:ignore="HardcodedText" />
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        app:counterEnabled="true"
+
+                        app:counterMaxLength="30"
+
+                        android:hint=""
+
+                        app:helperText="*Required"
+
+                        app:helperTextTextColor="#F00726"
+
+                        app:startIconDrawable="@drawable/baseline_person_24"
+
+                        app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+                            android:id="@+id/etName"
+
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Space
                         android:layout_width="match_parent"
                         android:layout_height="30dp" />
 
                 <TextView
-                        android:text="TextView"
+                        android:text="Password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView2" />
+                        android:id="@+id/textView2"
+                        style="@style/SecondaryHeaderTextStyle"
+                        tools:ignore="HardcodedText" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:text="Name"
-                        android:ems="10"
-                        android:id="@+id/etFirstName2" />
+
+                        android:layout_height="match_parent"
+
+                        app:counterEnabled="true"
+
+                        app:counterMaxLength="30"
+
+                        android:hint=""
+
+                        app:helperText="*Required"
+
+                        app:helperTextTextColor="#F00726"
+
+                        app:startIconDrawable="@drawable/baseline_person_24"
+
+                        app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+                            android:id="@+id/etPassword"
+
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Space
                         android:layout_width="match_parent"
                         android:layout_height="30dp" />
 
                 <TextView
-                        android:text="TextView"
+                        android:text="Phone Number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView3" />
+                        android:id="@+id/textView3"
+                        style="@style/SecondaryHeaderTextStyle"
+                        tools:ignore="HardcodedText" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:text="Name"
-                        android:ems="10"
-                        android:id="@+id/etFirstName3" />
+
+                        android:layout_height="match_parent"
+
+                        app:counterEnabled="true"
+
+                        app:counterMaxLength="30"
+
+                        android:hint=""
+
+                        app:helperText="*Required"
+
+                        app:helperTextTextColor="#F00726"
+
+                        app:startIconDrawable="@drawable/baseline_person_24"
+
+                        app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+                            android:id="@+id/etPhoneNumber"
+
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Space
                         android:layout_width="match_parent"
                         android:layout_height="30dp" />
 
                 <TextView
-                        android:text="TextView"
+                        android:text="Email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView4" />
+                        android:id="@+id/textView4"
+                        style="@style/SecondaryHeaderTextStyle"
+                        tools:ignore="HardcodedText" />
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:text="Name"
-                        android:ems="10"
-                        android:id="@+id/etFirstName4" />
+
+                        android:layout_height="match_parent"
+
+                        app:counterEnabled="true"
+
+                        app:counterMaxLength="30"
+
+                        android:hint=""
+
+                        app:helperText="*Required"
+
+                        app:helperTextTextColor="#F00726"
+
+                        app:startIconDrawable="@drawable/baseline_person_24"
+
+                        app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+                            android:id="@+id/etEmail"
+
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+            <TextView
+                    android:text="Save?"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView6"
+                    style="@style/HeaderTextStyle"
+                    tools:ignore="HardcodedText" />
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/buttons"
+                    android:gravity="center_horizontal">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        app:srcCompat="@drawable/outline_check_24"
+                        android:id="@+id/btnConfirm"
+                        android:layout_weight="1"
+                        tools:ignore="ContentDescription" />
+
+                <Space
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        app:srcCompat="@drawable/outline_close_24"
+                        android:id="@+id/btnCancel"
+                        android:layout_weight="1"
+                        tools:ignore="ContentDescription" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

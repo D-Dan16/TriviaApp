@@ -1,3 +1,4 @@
+
 package stav_gordeev.triviaapp;
 
 import android.os.Bundle;
