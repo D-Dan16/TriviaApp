@@ -7,13 +7,180 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp">
+
+            <TextView
+                    android:text="Trivia App"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvWelcome"
+                    style="@style/HeaderTextStyle" />
+
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+            <TextView
+                    android:text="Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvPassword2"
+                    style="@style/SecondaryHeaderTextStyle"
+                    tools:ignore="HardcodedText" />
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+
+                    app:counterEnabled="true"
+
+                    app:counterMaxLength="30"
+
+                    android:hint=""
+
+                    app:helperText="*Required"
+
+                    app:helperTextTextColor="#F00726"
+
+                    app:startIconDrawable="@drawable/baseline_person_24"
+
+                    app:endIconMode="clear_text"
+                    android:id="@+id/tilPassword">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                        android:id="@+id/etPassword"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+            <TextView
+                    android:text="Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvEmail3"
+                    style="@style/SecondaryHeaderTextStyle"
+                    tools:ignore="HardcodedText" />
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+
+                    app:counterEnabled="true"
+
+                    app:counterMaxLength="30"
+
+                    android:hint=""
+
+                    app:helperText="*Required"
+
+                    app:helperTextTextColor="#F00726"
+
+                    app:startIconDrawable="@drawable/baseline_person_24"
+
+                    app:endIconMode="clear_text"
+                    android:id="@+id/tilEmail">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                        android:id="@+id/etEmail"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/buttons"
+                    android:gravity="center_horizontal">
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/buttonWithText"
+                        android:gravity="center">
+
+                    <TextView
+                            android:text="Login"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            app:srcCompat="@drawable/outline_check_24"
+                            android:id="@+id/btnConfirm"
+                            android:layout_weight="1"
+                            tools:ignore="ContentDescription" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/buttonWithText"
+                        android:gravity="center">
+
+                    <TextView
+                            android:text="Register Instead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            app:srcCompat="@drawable/outline_close_24"
+                            android:id="@+id/btnCancel"
+                            android:layout_weight="1"
+                            tools:ignore="ContentDescription" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
