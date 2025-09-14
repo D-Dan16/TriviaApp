@@ -69,7 +69,8 @@
 
                         android:layout_width="match_parent"
 
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,7 +111,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                        android:id="@+id/etEmail"
+                        android:id="@+id/etEmailReg"
 
                         android:layout_width="match_parent"
 
@@ -148,9 +149,9 @@
                             android:layout_height="wrap_content"
                             android:clickable="true"
                             app:srcCompat="@drawable/outline_check_24"
-                            android:id="@+id/btnConfirm"
+                            android:id="@+id/fabOkReg"
                             android:layout_weight="1"
-                            tools:ignore="ContentDescription" />
+                            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -158,23 +159,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:id="@+id/buttonWithText"
+                        android:id="@+id/buttonWithText2"
                         android:gravity="center">
 
                     <TextView
                             android:text="Register Instead"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/textView" />
+                            android:id="@+id/textView2" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:clickable="true"
                             app:srcCompat="@drawable/outline_close_24"
-                            android:id="@+id/btnCancel"
+                            android:id="@+id/fabRegister"
                             android:layout_weight="1"
                             tools:ignore="ContentDescription" />
+
+                    <TextView
+                            android:text="fabRegister"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView3" />
 
                 </LinearLayout>
 

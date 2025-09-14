@@ -77,7 +77,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
 
-                            android:id="@+id/etName"
+                            android:id="@+id/etNameReg"
 
                             android:layout_width="match_parent"
 
@@ -167,7 +167,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
 
-                            android:id="@+id/etPhoneNumber"
+                            android:id="@+id/etPhone"
 
                             android:layout_width="match_parent"
 
@@ -212,7 +212,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
 
-                            android:id="@+id/etEmail"
+                            android:id="@+id/etEmailReg"
 
                             android:layout_width="match_parent"
 
@@ -246,7 +246,7 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         app:srcCompat="@drawable/outline_check_24"
-                        android:id="@+id/btnConfirm"
+                        android:id="@+id/fabOkReg"
                         android:layout_weight="1"
                         tools:ignore="ContentDescription" />
 
@@ -260,7 +260,7 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         app:srcCompat="@drawable/outline_close_24"
-                        android:id="@+id/btnCancel"
+                        android:id="@+id/fabCancelReg"
                         android:layout_weight="1"
                         tools:ignore="ContentDescription" />
             </LinearLayout>
