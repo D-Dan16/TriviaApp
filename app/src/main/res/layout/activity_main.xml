@@ -123,6 +123,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp" />
 
+            <CheckBox
+                android:id="@+id/cbPersonal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save user Prefrences" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -176,12 +186,6 @@
                             android:id="@+id/fabRegister"
                             android:layout_weight="1"
                             tools:ignore="ContentDescription" />
-
-                    <TextView
-                            android:text="fabRegister"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/textView3" />
 
                 </LinearLayout>
 

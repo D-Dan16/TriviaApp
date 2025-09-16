@@ -67,6 +67,7 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:onClick="SelectAnswer"
                         android:id="@+id/btnOp1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -93,6 +94,7 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:onClick="SelectAnswer"
                         android:id="@+id/btnOp2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,6 +121,7 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:onClick="SelectAnswer"
                         android:id="@+id/btnOp3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -145,6 +148,7 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:onClick="SelectAnswer"
                         android:id="@+id/btnOp4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
