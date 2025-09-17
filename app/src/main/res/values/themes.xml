@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.TriviaApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -7,10 +7,17 @@
 
     <style name="Theme.TriviaApp" parent="Base.Theme.TriviaApp" />
 
+    <style name="Base.Theme.Neighbors" parent="Theme.Material3.DayNight">
+         Customize your light theme here.
+         <item name="colorPrimary">@color/my_light_primary</item>
+    </style>
+
+
+
     <style name="HeaderTextStyle">
         <item name="android:textSize">30sp</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/material_dynamic_neutral60</item>
+        <item name="android:textColor">@color/material_dynamic_primary0</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:paddingBottom">8dp</item>
@@ -18,13 +25,12 @@
 
     <style name="SecondaryHeaderTextStyle">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/material_dynamic_primary0</item>
+        <item name="android:textColor">@color/material_dynamic_neutral60</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:paddingBottom">8dp</item>
     </style>
 
 
-
-
+    <color name="my_light_primary">#B7F5E8</color>
 </resources>
