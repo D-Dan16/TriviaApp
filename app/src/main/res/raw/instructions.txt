@@ -1,0 +1,10 @@
+Welcome to TriviaApp!
+
+Get ready to test your knowledge with fun and challenging trivia questions.
+
+How to Play:
+1. Each question will present you with a piece of trivia.
+2. You will have four possible answers to choose from.
+3. Select the answer you believe is correct.4. See if you got it right and learn something new!
+
+Have fun and good luck!
