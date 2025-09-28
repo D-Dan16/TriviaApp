@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class Register extends AppCompatActivity {
+public class Register extends BaseActivity {
 
     private FloatingActionButton fabCancelReg;
     private FloatingActionButton fabOKReg;

@@ -27,15 +27,6 @@
                 android:name=".mySettingsScreen"
                 android:exported="false" />
         <activity
-                android:name=".MusicService"
-                android:exported="false" />
-        <activity
-                android:name=".IncomingCallReceiver"
-                android:exported="false" />
-        <activity
-                android:name=".HelperDB"
-                android:exported="false" />
-        <activity
                 android:name=".GameOver"
                 android:exported="false" />
         <activity

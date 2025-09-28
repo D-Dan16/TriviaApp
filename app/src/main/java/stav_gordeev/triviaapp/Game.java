@@ -20,7 +20,7 @@ import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;
 
-public class Game extends AppCompatActivity {
+public class Game extends BaseActivity {
     //region Fields
     public ImageView ivTimer;
     public TextView tvTimer;

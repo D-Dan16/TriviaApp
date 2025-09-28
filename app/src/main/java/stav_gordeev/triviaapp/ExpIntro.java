@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class ExpIntro extends AppCompatActivity {
+public class ExpIntro extends BaseActivity {
 
     private TextView tvInstructions;
 

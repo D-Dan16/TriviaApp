@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-public class GameOver extends AppCompatActivity {
+public class GameOver extends BaseActivity {
 
     LottieAnimationView lavGameOver;
     TextView tvUserScore,tvPointsGO,tvAllScores;

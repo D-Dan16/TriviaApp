@@ -8,7 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class mySettingsScreen extends AppCompatActivity {
+public class mySettingsScreen extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
         private FloatingActionButton fabRegister;
         private FloatingActionButton fabLogin;
         private CheckBox cbPersonal;
