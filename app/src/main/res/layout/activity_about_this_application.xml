@@ -7,4 +7,9 @@
         android:layout_height="match_parent"
         tools:context=".AboutThisApplication">
 
+        <include
+            android:id="@+id/toolbar_layout"
+            layout="@layout/toolbar_menu"
+            app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

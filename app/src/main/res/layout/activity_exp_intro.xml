@@ -7,6 +7,11 @@
         android:layout_height="match_parent"
         tools:context=".ExpIntro">
 
+    <include
+            android:id="@+id/toolbar_layout"
+            layout="@layout/toolbar_menu"
+            app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"

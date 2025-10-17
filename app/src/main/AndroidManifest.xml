@@ -12,12 +12,6 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.TriviaApp">
         <activity
-                android:name=".UserProperties"
-                android:exported="false" />
-        <activity
-                android:name=".TopScores"
-                android:exported="false" />
-        <activity
                 android:name=".Register"
                 android:exported="false" />
         <activity
