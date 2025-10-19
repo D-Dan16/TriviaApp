@@ -1,4 +1,4 @@
-package stav_gordeev.triviaapp;
+package stav_gordeev.triviaapp.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,14 +11,14 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import org.xmlpull.v1.XmlPullParser;
-
 import java.util.ArrayList;
+
+import stav_gordeev.triviaapp.Question;
+import stav_gordeev.triviaapp.R;
 
 public class Game extends BaseActivity {
     //region Fields

@@ -12,31 +12,31 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.TriviaApp">
         <activity
-                android:name=".Register"
+                android:name=".activities.Register"
                 android:exported="false" />
         <activity
                 android:name=".Question"
                 android:exported="false" />
         <activity
-                android:name=".mySettingsScreen"
+                android:name=".activities.mySettingsScreen"
                 android:exported="false" />
         <activity
-                android:name=".GameOver"
+                android:name=".activities.GameOver"
                 android:exported="false" />
         <activity
-                android:name=".Game"
+                android:name=".activities.Game"
                 android:exported="false" />
         <activity
-                android:name=".ExpIntro"
+                android:name=".activities.ExpIntro"
                 android:exported="false" />
         <activity
-                android:name=".EditUserProperties"
+                android:name=".activities.EditUserProperties"
                 android:exported="false" />
         <activity
-                android:name=".AboutThisApplication"
+                android:name=".activities.AboutThisApplication"
                 android:exported="false" />
         <activity
-                android:name=".MainActivity"
+                android:name=".activities.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

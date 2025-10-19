@@ -1,4 +1,4 @@
-package stav_gordeev.triviaapp;
+package stav_gordeev.triviaapp.activities;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.List;
+
+import stav_gordeev.triviaapp.R;
 
 /**
  * A base activity class that provides a common options menu for all activities that extend it.

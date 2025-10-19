@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "917734068273",
+    "firebase_url": "https://triviaapp-3d5ad-default-rtdb.firebaseio.com",
+    "project_id": "triviaapp-3d5ad",
+    "storage_bucket": "triviaapp-3d5ad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917734068273:android:082603afb105079c108510",
+        "android_client_info": {
+          "package_name": "stav_gordeev.triviaapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC61z_oSXgc2ss9mAaAJsJJwkN25QwTwbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
