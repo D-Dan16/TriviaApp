@@ -1,4 +1,4 @@
-package stav_gordeev.triviaapp;
+package stav_gordeev.triviaapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
+
+import stav_gordeev.triviaapp.R;
 
 public class GameOver extends BaseActivity {
 

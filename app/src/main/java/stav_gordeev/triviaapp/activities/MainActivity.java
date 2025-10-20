@@ -1,4 +1,4 @@
-package stav_gordeev.triviaapp;
+package stav_gordeev.triviaapp.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -6,9 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -16,6 +16,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+
+import stav_gordeev.triviaapp.Question;
+import stav_gordeev.triviaapp.R;
+import stav_gordeev.triviaapp.database.Authentication;
 
 public class MainActivity extends BaseActivity {
         private FloatingActionButton fabRegister;
@@ -49,24 +53,44 @@ public class MainActivity extends BaseActivity {
 
             fabLogin.setOnClickListener(view -> {
                 //perform login
-                if (verifyUserExist()) {
-                    if (cbPersonal.isChecked())
-                    {
-                        // save email and password in shared preferences
-                        saveLoggedInUserInSharedPreferences();
-                    }
-                    Intent intent = new Intent(MainActivity.this, Game.class);
-                    intent.putExtra("email",etEmail.getText().toString());
-                    intent.putExtra("questions",questions);
-                    startActivity(intent);
-                }
+                signInAndVerifyUser();
+
             });
         }
 
 
-    //TODO: For now, this always returns true
-    private boolean verifyUserExist() {
-        return true;
+    /**
+     * Checks if the user exists in the firebase database
+     * If it does, it signs in the user
+     */
+    private void signInAndVerifyUser() {
+        if (Authentication.getCurrentUser() == null)
+            return;
+
+        Authentication.signIn(
+                this,
+                etEmail.getText().toString(),
+                etPassword.getText().toString(),
+                task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(MainActivity.this, Game.class);
+                        intent.putExtra("email",etEmail.getText().toString());
+                        intent.putExtra("questions",questions);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Login Failed: " + task.getException(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+        // save email and password in shared preferences
+        if (cbPersonal.isChecked()) {
+            saveLoggedInUserInSharedPreferences();
+        }
+
+
     }
 
     @SuppressLint("CutPasteId")
@@ -115,8 +139,7 @@ public class MainActivity extends BaseActivity {
 
     public void saveLoggedInUserInSharedPreferences()
     {
-        SharedPreferences sp=
-                getSharedPreferences("trivia",MODE_PRIVATE);
+        SharedPreferences sp= getSharedPreferences("trivia",MODE_PRIVATE);
         SharedPreferences.Editor editor= sp.edit();
         editor.putString("email",etEmail.getText().toString());
         editor.putString("password",etPassword.getText().toString());
