@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TriviaApp</string>
+    <string name="trivia_app">Trivia App</string>
+    <string name="save_user_prefrences">Save user Prefrences</string>
+    <string name="login">Login</string>
+    <string name="register_instead">Register Instead</string>
 </resources>

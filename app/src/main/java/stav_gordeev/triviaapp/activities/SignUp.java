@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 import stav_gordeev.triviaapp.R;
-import stav_gordeev.triviaapp.database.User;
+import stav_gordeev.triviaapp.User;
 
 
 public class SignUp extends AppCompatActivity {

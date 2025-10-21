@@ -30,14 +30,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-
-import android.widget.Button;
 import android.content.Context;
 
 import java.util.Objects;
 
 import stav_gordeev.triviaapp.R;
-import stav_gordeev.triviaapp.database.User;
+import stav_gordeev.triviaapp.User;
 
 public class MainActivity extends BaseActivity {
     private FloatingActionButton fabRegister;
@@ -64,7 +62,6 @@ public class MainActivity extends BaseActivity {
     String clickableTextForgotPassword = "Click here";
     SpannableString spannableSignUp, spannableForgotPassword;
     private FirebaseAuth mAuth;     // Firebase Authentication Object
-    FirebaseDatabase database;      // Firebase Realtime Database Object
     DatabaseReference usersDBRef;   // Firebase Realtime Database Users Reference
     String uid="";                 // Firebase User ID to be retrieved from Firebase Authentication
     User currentUser;// User object to be constructed
@@ -77,7 +74,8 @@ public class MainActivity extends BaseActivity {
 
         initUI();
 
-        initFirebase();
+        mAuth = FirebaseAuth.getInstance();
+        usersDBRef = FirebaseDatabase.getInstance().getReference("Users");
 
         setClickableLinks();
 
@@ -213,7 +211,7 @@ public class MainActivity extends BaseActivity {
                 if (email.isEmpty()) {
                     tilEmailIn.setError("Email Required");
                 } else {
-                    // Firebase Methoid to send reset password email
+                    // Firebase Method to send reset password email
                     // it is asynchronic so we need a callback on it
                     // we place a listener on it with a task object
                     // its either successful or else
@@ -241,12 +239,6 @@ public class MainActivity extends BaseActivity {
         }
         tvForgotPassword.setText(spannableForgotPassword);
         tvForgotPassword.setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
-    void initFirebase(){
-        mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        usersDBRef = database.getReference("Users");
     }
 
     void initUI() {

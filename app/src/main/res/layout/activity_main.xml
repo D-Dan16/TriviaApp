@@ -30,7 +30,7 @@
                 android:padding="25dp">
 
             <TextView
-                    android:text="Trivia App"
+                    android:text="@string/trivia_app"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvWelcome"
@@ -139,14 +139,14 @@
                 android:id="@+id/cbPersonal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save user Prefrences" />
+                android:text="@string/save_user_prefrences" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
 
             <LinearLayout
-                    android:orientation="horizontal"
+                    android:baselineAligned="false" android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/buttons"
@@ -161,14 +161,14 @@
                         android:gravity="center">
 
                     <TextView
-                            android:text="Login"
+                            android:text="@string/login"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/textView" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:clickable="true"
                             app:srcCompat="@drawable/outline_check_24"
                             android:id="@+id/fabOkReg"
@@ -185,14 +185,14 @@
                         android:gravity="center">
 
                     <TextView
-                            android:text="Register Instead"
+                            android:text="@string/register_instead"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/textView2" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:clickable="true"
                             app:srcCompat="@drawable/outline_close_24"
                             android:id="@+id/fabRegister"

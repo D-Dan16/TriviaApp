@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import stav_gordeev.triviaapp.Question;
-import stav_gordeev.triviaapp.database.User;
+import stav_gordeev.triviaapp.User;
 
 public class GameGlobalsSingleton {
     private List<Question> questionList;

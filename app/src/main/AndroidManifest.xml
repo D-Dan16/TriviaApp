@@ -15,9 +15,6 @@
                 android:name=".activities.SignUp"
                 android:exported="false" />
         <activity
-                android:name=".Question"
-                android:exported="false" />
-        <activity
                 android:name=".activities.mySettingsScreen"
                 android:exported="false" />
         <activity

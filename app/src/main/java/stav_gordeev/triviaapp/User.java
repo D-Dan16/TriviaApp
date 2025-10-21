@@ -1,4 +1,4 @@
-package stav_gordeev.triviaapp.database;
+package stav_gordeev.triviaapp;
 public class User {
     private String uid;
     private String userName;
