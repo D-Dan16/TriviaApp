@@ -1,58 +1,188 @@
-
 package stav_gordeev.triviaapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
+
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.auth.User;
 
 import stav_gordeev.triviaapp.R;
+import stav_gordeev.triviaapp.activities.Game;
 
-public class Register extends BaseActivity {
 
-    private FloatingActionButton fabCancelReg;
-    private FloatingActionButton fabOKReg;
-    private EditText etNameReg;
-    private EditText etEmailReg;
-    private EditText etPhone;
-    private EditText etPassword;
+public class Register extends AppCompatActivity {
+
+
+    // debug TAG
+    private static final String TAG = "SignUp";
+    // view objects
+    TextInputLayout tilEmail, tilPassword, tilUserName;
+    TextInputEditText etEmail, etPassword, etUserName;
+    TextView tvHiddenRules;
+    Button fabRegister, fabCancelReg;
+    //String Holders
+    String email="", password="", userName="";
+    // Firebase Authentication
+    private FirebaseAuth mAuth;
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
 
         init();
 
 
-        fabCancelReg.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-                Intent intent=new Intent( Register.this, MainActivity.class);
-                startActivity(intent);
-			}
+        //when password text field is pushed
+        etPassword.setOnFocusChangeListener((view, hasFocus) -> {
+            if (hasFocus)
+                tvHiddenRules.setVisibility(View.VISIBLE);
+            else
+                tvHiddenRules.setVisibility(View.INVISIBLE);
+        });
+
+
+
+
+        // when button pushed
+        fabRegister.setOnClickListener(view -> {
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            String userName = etUserName.getText().toString();
+
+
+            if(email.isEmpty()){
+                tilEmail.setError("Email Required");
+                return;
+            }
+            if(password.isEmpty()){
+                tilPassword.setError("Password Required");
+                return;
+            }
+            if(userName.isEmpty()){
+                tilUserName.setError("UserName Required");
+                return;
+            }
+            if(!isValidPassword(password)){
+                tilPassword.setError("Password Rules Below");
+                tvHiddenRules.setVisibility(View.VISIBLE);
+                return;
+            }
+
+
+            Toast.makeText(Register.this, "Signing Up", Toast.LENGTH_SHORT).show();
+
+
+            // method from the firebase authentication library to create a new user with email / password
+            // it is asynchronic, so we need a callback
+            // we place a listener on it with a task object.
+            // we implement actions if the task is successful and if not
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser fbUser = mAuth.getCurrentUser();
+                            createUserAndNextActivity(fbUser.getUid(), userName);
+                        }
+                        else {
+                            // check why it failed
+                            Exception e = task.getException();
+                            Log.w(TAG, "createUserWithEmail:failure", e);
+                            String errorMessage = e.getMessage();
+                            if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                // invalid credentials. which credential?
+                                Log.e(TAG, "Invalid Credentials: "+errorMessage);
+                                if(errorMessage.contains("ERROR_INVALID_EMAIL"))
+                                    tilEmail.setError("Valid email address Please!");
+                            }
+                            else if (e instanceof FirebaseAuthUserCollisionException) {
+                                // user already exists
+                                Log.e(TAG, "User already exists: "+errorMessage);
+                                tilEmail.setError("This Email is already used!");
+                            }
+                            else {
+                                Log.e(TAG, "Unknown error: " + errorMessage);
+                                Toast.makeText(Register.this, "Unknown error: " + errorMessage, Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        }
+                    }); // listener on the task
+
+
+        }); // listener on the button
+
+
+    }  // onCreate
+
+
+    private void createUserAndNextActivity(String uid, String userName){
+        // first create a User object
+        User currentUser = new User(uid);
+        // Then write it to firebase. first reference the Realtime Database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        // and reference a new node (leaf) in the tree for the new user
+        DatabaseReference userNode = database.getReference("Users").child(uid);
+        // This is the Firebase Realtime Database write method
+        // we place a listener on it, to see that its successful
+        // the setValue method returns a Task<Void> - it doesnt return any object
+        userNode.setValue(currentUser).addOnCompleteListener(aVoid -> {
+            // if successfull
+            Log.d(TAG, "User created successfully with uid " + uid);
+            Toast.makeText(Register.this, "User created successfully.", Toast.LENGTH_SHORT).show();
+            // go to dbFetchWait screen
+            Intent toGame = new Intent(this, Game.class);
+            startActivity(toGame);
+        }).addOnFailureListener(e -> {
+            // if failed
+            Log.e(TAG, "Failed to create user in database", e);
+            Toast.makeText(Register.this, "Failed to create user in database.", Toast.LENGTH_SHORT).show();
         });
     }
-    
-    public void init() {
-            fabCancelReg=findViewById(R.id.fabCancelReg);
-            fabOKReg=findViewById(R.id.fabOkReg);
-            etNameReg=findViewById(R.id.etNameReg);
-            etEmailReg=findViewById(R.id.etEmailReg);
-            etPhone=findViewById(R.id.etPhone);
-            etPassword=findViewById(R.id.etPassword);
+
+
+    private boolean isValidPassword(String password) {
+        // Password must be at least 6 characters long and contain at least one letter and one digit
+        return password.matches(".*[A-Za-z].*") && password.matches(".*\\d.*") && password.length() >= 6;
+    }
+
+
+    private void init(){
+        tilEmail = findViewById(R.id.tilEmail);
+        tilPassword = findViewById(R.id.tilPassword);
+        tilUserName = findViewById(R.id.tilUserName);
+        etEmail = findViewById(R.id.etEmailReg);
+        etPassword = findViewById(R.id.etPassword);
+        etUserName = findViewById(R.id.etNameReg);
+        fabRegister = findViewById(R.id.fabRegister);
+        fabCancelReg = findViewById(R.id.fabCancelReg);
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+
     }
 }

@@ -73,7 +73,7 @@
                         app:startIconDrawable="@drawable/baseline_person_24"
 
                         app:endIconMode="clear_text"
-                        android:id="@+id/tilName">
+                        android:id="@+id/tilUserName">
 
                     <com.google.android.material.textfield.TextInputEditText
 
