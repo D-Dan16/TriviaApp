@@ -53,117 +53,94 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
 
-            <LinearLayout
-                android:id="@+id/userOptions"
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cgAnswers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvQuestion"
+                    app:layout_constraintVertical_bias="0.2"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/cAns1"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:text="Choice A"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        />
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/cAns2"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:text="Choice B"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        />
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/cAns3"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:text="Choice C"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        />
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/cAns4"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:text="Choice D"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        />
+
+
+
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_height="30dp" />
 
-                <LinearLayout
-                    android:id="@+id/triviaAnswer"
+            <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent">
 
-                    <Button
-                        android:onClick="SelectAnswer"
-                        android:id="@+id/btnOp1"
+                <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="A" />
+                        app:srcCompat="@drawable/outline_check_24"
+                        android:id="@+id/ivCorrect"
+                        android:layout_weight="1" />
 
-                    <TextView
-                        android:id="@+id/tvAnswer1"
+                <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="TextView" />
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp" />
-
-                <LinearLayout
-                    android:id="@+id/triviaAnswer2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:onClick="SelectAnswer"
-                        android:id="@+id/btnOp2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="B" />
-
-                    <TextView
-                        android:id="@+id/tvAnswer2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="TextView" />
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp" />
-
-                <LinearLayout
-                    android:id="@+id/triviaAnswer3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:onClick="SelectAnswer"
-                        android:id="@+id/btnOp3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="C" />
-
-                    <TextView
-                        android:id="@+id/tvAnswer3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="TextView" />
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp" />
-
-                <LinearLayout
-                    android:id="@+id/triviaAnswer4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:onClick="SelectAnswer"
-                        android:id="@+id/btnOp4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="D" />
-
-                    <TextView
-                        android:id="@+id/tvAnswer4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="TextView" />
-                </LinearLayout>
-
+                        app:srcCompat="@drawable/outline_close_24"
+                        android:id="@+id/ivWrong"
+                        android:layout_weight="1" />
             </LinearLayout>
 
             <Space
@@ -171,8 +148,8 @@
                 android:layout_height="30dp" />
 
             <Space
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
 
             <ProgressBar
                 android:id="@+id/pbQuestion"
@@ -186,6 +163,25 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="1/10" />
+
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+            <Button
+                    android:id="@+id/bSubmit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tvQuestion"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvQuestion"
+                    app:layout_constraintTop_toBottomOf="@+id/tvQuestion"
+                    app:layout_constraintVertical_bias="0.865"
+                    android:gravity="center"
+                    android:layout_gravity="center" />
+
 
         </LinearLayout>
     </ScrollView>

@@ -12,7 +12,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.TriviaApp">
         <activity
-                android:name=".activities.Register"
+                android:name=".activities.SignUp"
                 android:exported="false" />
         <activity
                 android:name=".Question"
@@ -25,9 +25,6 @@
                 android:exported="false" />
         <activity
                 android:name=".activities.Game"
-                android:exported="false" />
-        <activity
-                android:name=".activities.ExpIntro"
                 android:exported="false" />
         <activity
                 android:name=".activities.EditUserProperties"

@@ -33,13 +33,13 @@ android {
 }
 
 dependencies {
-    implementation("com.airbnb.android:lottie:6.4.0")
+    implementation(libs.lottie)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.firestore)
-    implementation("com.google.firebase:firebase-auth:24.0.1")
+    implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
 //    implementation(libs.firebase.auth)
     testImplementation(libs.junit)

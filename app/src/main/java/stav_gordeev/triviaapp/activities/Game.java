@@ -1,188 +1,192 @@
 package stav_gordeev.triviaapp.activities;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Collections;
 
 import stav_gordeev.triviaapp.Question;
 import stav_gordeev.triviaapp.R;
+import stav_gordeev.triviaapp.activities.GameGlobalsSingleton;
 
-public class Game extends BaseActivity {
-    //region Fields
-    public ImageView ivTimer;
-    public TextView tvTimer;
-    public ImageView ivQuestion;
-    public TextView tvQuestion;
-    public Button btnOption1;
-    public TextView tvAnswer1;
-    public Button btnOption2;
-    public TextView tvAnswer2;
-    public Button btnOption3;
-    public TextView tvAnswer3;
-    public Button btnOption4;
-    public TextView tvAnswer4;
-    public ProgressBar pbQuestion;
-    public TextView tvProgress;
 
-    public Question current;
-    public int points;
-    public int rounds=0;
-    public int MAX_ROUNDS;
-    public String email;
-    private ArrayList<Question> questions;
-    //endregion
+public class Game extends AppCompatActivity {
+
+    private static final String TAG = "GameActivity"; // For logging
+
+    // Firebase references
+    private FirebaseDatabase database;
+    private DatabaseReference questionsRef; // A reference to the root or a specific path
+
+    // Using ArrayList to store the Question objects
+    private List<Question> questionList; // Declare the list
+    private List<Question> tempQuestionsHolder; // A temporary list to hold questions while fetching
+    private boolean initialLoadDone = false; // Flag to ensure initial load happens only once
+    // private int levelsSuccessfullyFetched = 0; // Counter for successfully fetched levels
+
+    // UI elements
+    ChipGroup cgAnswers;
+    Chip cAns1, cAns2, cAns3, cAns4;
+    TextView tvQuestion;
+    Button bSubmit;
+    ImageView ivCorrect, ivWrong;
+
+    // Game Logic Variables
+    int correctAnswer = 0, selectedAnswer = 0;
+    int correctAnswersCounter = 0;    // how many correct answers by user. keep score.
+    int currentQuestionIndex = 0;
+    int questionsInGame = GameGlobalsSingleton.getInstance().getLevelsInGame();
+    // this should also be put as GameGlobal !!
+    String currentCategory = "SolarSystem";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_game);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        initUI();
+
+        // Initialize questionList
+        questionList = GameGlobalsSingleton.getInstance().getQuestionList();
+
+        loadNextQuestion();
+
+        bSubmit.setOnClickListener(v -> {
+            // see that any chip is checked
+            if (!cgAnswers.getCheckedChipIds().isEmpty()) {
+                // set selected answer
+                selectedAnswer = chipIdToInt(cgAnswers.getCheckedChipId());
+                // check if correct
+                if (selectedAnswer == correctAnswer) {
+                    correctAnswersCounter++;
+                    flicker(ivCorrect);
+                } else
+                    flicker(ivWrong);
+
+                currentQuestionIndex++;
+
+                loadNextQuestion();
+            } else
+                Toast.makeText(this, "Pick one!", Toast.LENGTH_SHORT).show();
         });
-
-        init();
-
-        Intent intent=getIntent();
-        email=intent.getStringExtra("email");
-        questions= (ArrayList<Question>) intent.getSerializableExtra("questions");
-
-        assert questions != null;
-        MAX_ROUNDS=questions.size();
-
-        tvProgress.setText(rounds +"/"+ MAX_ROUNDS);
-
-
-        getRandomQuestion();
     }
 
-    private void init()
-    {
-        tvTimer=findViewById(R.id.tvTimer);
-        tvQuestion=findViewById(R.id.tvQuestion);
-        btnOption1=findViewById(R.id.btnOp1);
-        tvAnswer1=findViewById(R.id.tvAnswer1);
-        btnOption2=findViewById(R.id.btnOp2);
-        tvAnswer2=findViewById(R.id.tvAnswer2);
-        btnOption3=findViewById(R.id.btnOp3);
-        tvAnswer3=findViewById(R.id.tvAnswer3);
-        btnOption4=findViewById(R.id.btnOp4);
-        tvAnswer4=findViewById(R.id.tvAnswer4);
-        pbQuestion=findViewById(R.id.pbQuestion);
-        tvProgress=findViewById(R.id.tvProgress);
+    private void flicker(ImageView iv) {
+        // temp function - USE vAnimations !
+
+        iv.animate().alpha(1).setDuration(500).withEndAction(() -> {
+            iv.animate().alpha(0).setDuration(500).start();
+        });
     }
 
+    private int chipIdToInt(int chipId) {
+        if (chipId == R.id.cAns1)
+            return 0;
+        else if (chipId == R.id.cAns2)
+            return 1;
+        else if (chipId == R.id.cAns3)
+            return 2;
+        else if (chipId == R.id.cAns4)
+            return 3;
+        else
+            return -1;
+    }
 
+    private void loadNextQuestion() {
 
-    @SuppressLint("SetTextI18n")
-    public boolean getRandomQuestion()
-    {
-        int numQuestions=questions.size();
-        if (numQuestions>0&&rounds<MAX_ROUNDS) {
-            rounds++;
-            pbQuestion.setProgress(rounds);
-            tvProgress.setText(rounds +"/"+ MAX_ROUNDS);
-            int min = 0;
-            int max = numQuestions - 1;
-            int randomize = min + (int) (Math.random() * (max - min + 1));
-            current = questions.get(randomize);
-            questions.remove(randomize);
-            tvQuestion.setText(current.getQuestion());
-            tvAnswer1.setText(current.getPossibleAnswer1());
-            tvAnswer2.setText(current.getPossibleAnswer2());
-            tvAnswer3.setText(current.getPossibleAnswer3());
-            tvAnswer4.setText(current.getPossibleAnswer4());
-            return true;
+        if (questionList.isEmpty()) {
+            Log.e(TAG, "loadNextQuestion called but questionList is empty.");
+            //  "no questions" state
+            tvQuestion.setText("OOPS.. No Questions found!");
+            bSubmit.setEnabled(false);
+            for (int i = 0; i < cgAnswers.getChildCount(); i++)
+                cgAnswers.getChildAt(i).setEnabled(false);
+            return;
         }
-        else {
-            return  false;
-        }
-    }
 
+        // check what question is now
+        if (currentQuestionIndex < questionsInGame) {
+            // unchecks all chips
+            cgAnswers.clearCheck();
+            bSubmit.setEnabled(true);
 
-    public void SelectAnswer (View v) {
-        if (v.getId() == R.id.btnOp1) {
-            if (current.getCorrectAnswer().equals(current.getPossibleAnswer1())) {
-                // correct
-                points++;
-                notifySuccess();
-            } else {
-                notifyFailure();
+            // retrieve next question
+            Question currentQuestion = questionList.get(currentQuestionIndex);
+            // here scramble answers function
+            List<String> answers = scrambleAnswers(currentQuestion);
+            // set question text and answers
+            tvQuestion.setText(currentQuestion.getQueText());
+            cAns1.setText(answers.get(0));
+            cAns2.setText(answers.get(1));
+            cAns3.setText(answers.get(2));
+            cAns4.setText(answers.get(3));
+
+        } else {
+            // Game Over
+            // here confetti animation
+            if (correctAnswersCounter > GameGlobalsSingleton.getInstance().getCurrentUser().getHighestScore()) {
+                // Toast message
+                Toast.makeText(this, "New High Score of " + correctAnswersCounter + "!", Toast.LENGTH_LONG).show();
+                // set in the GameGlobals user opbject
+                GameGlobalsSingleton.getInstance().getCurrentUser().setHighestScore(correctAnswersCounter);
             }
-        } else if (v.getId() == R.id.btnOp2) {
-            if (current.getCorrectAnswer().equals(current.getPossibleAnswer2())) {
-                // correct
-                points++;
-                notifySuccess();
-            } else {
-                notifyFailure();
-            }
-        } else if (v.getId() == R.id.btnOp3) {
-            if (current.getCorrectAnswer().equals(current.getPossibleAnswer3())) {
-                // correct
-                points++;
-                notifySuccess();
-            } else {
-                notifyFailure();
-            }
-        } else if (v.getId() == R.id.btnOp4) {
-            if (current.getCorrectAnswer().equals(current.getPossibleAnswer4())) {
-                // correct
-                points++;
-                notifySuccess();
-            } else {
-                notifyFailure();
-            }
+            else
+                Toast.makeText(this, "Game Over You got " + correctAnswersCounter + " out of " + questionsInGame + " correct!", Toast.LENGTH_LONG).show();
+            // in any case update that a game was played
+            // NEED TO IMPLEMENT A REPEAT GAME BUTTON AND A FINAL ACTIVITY WITH SCORES !!!!!
+            GameGlobalsSingleton.getInstance().getCurrentUser().setTotalGamesPlayed(
+                    GameGlobalsSingleton.getInstance().getCurrentUser().getTotalGamesPlayed() + 1);
+            // we also want to update this info in the Firebase Realtime Database
+            Log.d(TAG, "Updating user info in Firebase uid" + GameGlobalsSingleton.getInstance().getCurrentUser().getUid());
+            // this is the Firebase Database Object
+            database = FirebaseDatabase.getInstance();
+            // this is the reference to the specific user node in the database
+            DatabaseReference userRef = database.getReference("Users").child(GameGlobalsSingleton.getInstance().getCurrentUser().getUid());
+            // set the up to date values from game globals
+            userRef.child("highestScore").setValue(GameGlobalsSingleton.getInstance().getCurrentUser().getHighestScore());
+            userRef.child("totalGamesPlayed").setValue(GameGlobalsSingleton.getInstance().getCurrentUser().getTotalGamesPlayed());
         }
     }
 
-    public void notifySuccess()
-    {
-        AlertDialog.Builder adbCorrectResponse;
-        adbCorrectResponse = new AlertDialog.Builder(Game.this);
-        adbCorrectResponse.setTitle("Correct");
-        adbCorrectResponse.setMessage("well done");
-        adbCorrectResponse.setCancelable(false);
-        adbCorrectResponse.setIcon(R.drawable.outline_check_24);
-        adbCorrectResponse.setNeutralButton("OK", (dialog, which) -> goToNext());
-        adbCorrectResponse.create().show();
+    private List<String> scrambleAnswers(Question question) {
+        Random random = new Random();
+        correctAnswer = random.nextInt(4);
 
-    }
-    public void notifyFailure() {
-        AlertDialog.Builder adbCorrectResponse;
-        adbCorrectResponse = new AlertDialog.Builder(Game.this);
-        adbCorrectResponse.setTitle("Incorrect");
-        adbCorrectResponse.setMessage("Better luck next time");
-        adbCorrectResponse.setCancelable(false);
-        adbCorrectResponse.setIcon(R.drawable.outline_close_24);
-        adbCorrectResponse.setNeutralButton("OK", (dialog, which) -> goToNext());
-        adbCorrectResponse.create().show();
+        List<String> answers = new ArrayList<>();
+        String correct = question.getAnsCorrect();
+        answers.add(question.getAnsWrong1());
+        answers.add(question.getAnsWrong2());
+        answers.add(question.getAnsWrong3());
+
+        Collections.shuffle(answers);
+        answers.add(correctAnswer, correct);
+        return answers;
     }
 
-    public void goToNext()
-    {
-        if (!getRandomQuestion())
-        {
-            //game over
-            Intent intent=new Intent(Game.this, GameOver.class);
-            intent.putExtra("points",points);
-            intent.putExtra("email",email);
-            startActivity(intent);
-        }
+    private void initUI() {
+        cgAnswers = findViewById(R.id.cgAnswers);
+        cAns1 = findViewById(R.id.cAns1);
+        cAns2 = findViewById(R.id.cAns2);
+        cAns3 = findViewById(R.id.cAns3);
+        cAns4 = findViewById(R.id.cAns4);
+        tvQuestion = findViewById(R.id.tvQuestion);
+        bSubmit = findViewById(R.id.bSubmit);
+        bSubmit.setEnabled(false);
+        ivCorrect = findViewById(R.id.ivCorrect);
+        ivWrong = findViewById(R.id.ivWrong);
     }
 }

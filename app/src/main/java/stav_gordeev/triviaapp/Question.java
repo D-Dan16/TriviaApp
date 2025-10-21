@@ -1,81 +1,83 @@
 package stav_gordeev.triviaapp;
 
-import androidx.annotation.NonNull;
+public class Question {
+    private int level;
+    private String id, queText, ansCorrect, ansWrong1, ansWrong2, ansWrong3;
 
-import java.io.Serializable;
-
-public class Question implements Serializable {
-    private String question;
-    private String possibleAnswer1, possibleAnswer2, possibleAnswer3, possibleAnswer4;
-    private String correctAnswer;
-
-    public Question(String question, String possibleAnswer1, String possibleAnswer2, String possibleAnswer3, String possibleAnswer4, String correctAnswer) {
-        this.question = question;
-        this.possibleAnswer1 = possibleAnswer1;
-        this.possibleAnswer2 = possibleAnswer2;
-        this.possibleAnswer3 = possibleAnswer3;
-        this.possibleAnswer4 = possibleAnswer4;
-        this.correctAnswer = correctAnswer;
+    public Question() {
     }
 
-    @NonNull
+    public Question(String id, int level, String queText, String ansCorrect, String andWrong1, String andWrong2, String ansWrong3) {
+        this.id = id;
+        this.level = level;
+        this.queText = queText;
+        this.ansCorrect = ansCorrect;
+        this.ansWrong1 = andWrong1;
+        this.ansWrong2 = andWrong2;
+        this.ansWrong3 = ansWrong3;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getQueText() {
+        return queText;
+    }
+
+    public void setQueText(String queText) {
+        this.queText = queText;
+    }
+
+    public String getAnsCorrect() {
+        return ansCorrect;
+    }
+
+    public void setAnsCorrect(String ansCorrect) {
+        this.ansCorrect = ansCorrect;
+    }
+
+    public String getAnsWrong1() {
+        return ansWrong1;
+    }
+
+    public void setAnsWrong1(String ansWrong1) {
+        this.ansWrong1 = ansWrong1;
+    }
+
+    public String getAnsWrong2() {
+        return ansWrong2;
+    }
+
+    public void setAnsWrong2(String ansWrong2) {
+        this.ansWrong2 = ansWrong2;
+    }
+
+    public String getAnsWrong3() {
+        return ansWrong3;
+    }
+
+    public void setAnsWrong3(String ansWrong3) {
+        this.ansWrong3 = ansWrong3;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
-                "question='" + question + '\'' +
-                ", possibleAnswer1='" + possibleAnswer1 + '\'' +
-                ", possibleAnswer2='" + possibleAnswer2 + '\'' +
-                ", possibleAnswer3='" + possibleAnswer3 + '\'' +
-                ", possibleAnswer4='" + possibleAnswer4 + '\'' +
-                ", correctAnswer='" + correctAnswer + '\'' +
+                "id=" + id + '\'' +
+                ", queText=\'" + queText +
                 '}';
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getPossibleAnswer1() {
-        return possibleAnswer1;
-    }
-
-    public void setPossibleAnswer1(String possibleAnswer1) {
-        this.possibleAnswer1 = possibleAnswer1;
-    }
-
-    public String getPossibleAnswer2() {
-        return possibleAnswer2;
-    }
-
-    public void setPossibleAnswer2(String possibleAnswer2) {
-        this.possibleAnswer2 = possibleAnswer2;
-    }
-
-    public String getPossibleAnswer3() {
-        return possibleAnswer3;
-    }
-
-    public void setPossibleAnswer3(String possibleAnswer3) {
-        this.possibleAnswer3 = possibleAnswer3;
-    }
-
-    public String getPossibleAnswer4() {
-        return possibleAnswer4;
-    }
-
-    public void setPossibleAnswer4(String possibleAnswer4) {
-        this.possibleAnswer4 = possibleAnswer4;
-    }
-
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
     }
 }

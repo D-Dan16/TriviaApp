@@ -24,10 +24,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 import stav_gordeev.triviaapp.R;
-import stav_gordeev.triviaapp.activities.Game;
+import stav_gordeev.triviaapp.database.User;
 
 
-public class Register extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
 
 
     // debug TAG
@@ -93,7 +93,7 @@ public class Register extends AppCompatActivity {
             }
 
 
-            Toast.makeText(Register.this, "Signing Up", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUp.this, "Signing Up", Toast.LENGTH_SHORT).show();
 
 
             // method from the firebase authentication library to create a new user with email / password
@@ -126,7 +126,7 @@ public class Register extends AppCompatActivity {
                             }
                             else {
                                 Log.e(TAG, "Unknown error: " + errorMessage);
-                                Toast.makeText(Register.this, "Unknown error: " + errorMessage, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUp.this, "Unknown error: " + errorMessage, Toast.LENGTH_SHORT).show();
                             }
 
 
@@ -142,7 +142,7 @@ public class Register extends AppCompatActivity {
 
     private void createUserAndNextActivity(String uid, String userName){
         // first create a User object
-        stav_gordeev.triviaapp.database.User currentUser = new stav_gordeev.triviaapp.database.User(uid, userName);
+        User currentUser = new User(uid, userName);
         // Then write it to firebase. first reference the Realtime Database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         // and reference a new node (leaf) in the tree for the new user
@@ -153,14 +153,14 @@ public class Register extends AppCompatActivity {
         userNode.setValue(currentUser).addOnCompleteListener(aVoid -> {
             // if successfull
             Log.d(TAG, "User created successfully with uid " + uid);
-            Toast.makeText(Register.this, "User created successfully.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUp.this, "User created successfully.", Toast.LENGTH_SHORT).show();
             // go to dbFetchWait screen
             Intent toGame = new Intent(this, Game.class);
             startActivity(toGame);
         }).addOnFailureListener(e -> {
             // if failed
             Log.e(TAG, "Failed to create user in database", e);
-            Toast.makeText(Register.this, "Failed to create user in database.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUp.this, "Failed to create user in database.", Toast.LENGTH_SHORT).show();
         });
     }
 
