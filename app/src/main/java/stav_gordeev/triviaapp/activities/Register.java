@@ -20,7 +20,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.auth.User;
+
+import java.util.Objects;
 
 import stav_gordeev.triviaapp.R;
 import stav_gordeev.triviaapp.activities.Game;
@@ -68,9 +69,9 @@ public class Register extends AppCompatActivity {
 
         // when button pushed
         fabRegister.setOnClickListener(view -> {
-            String email = etEmail.getText().toString();
-            String password = etPassword.getText().toString();
-            String userName = etUserName.getText().toString();
+            String email = Objects.requireNonNull(etEmail.getText()).toString();
+            String password = Objects.requireNonNull(etPassword.getText()).toString();
+            String userName = Objects.requireNonNull(etUserName.getText()).toString();
 
 
             if(email.isEmpty()){
@@ -105,17 +106,17 @@ public class Register extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser fbUser = mAuth.getCurrentUser();
-                            createUserAndNextActivity(fbUser.getUid(), userName);
+                            createUserAndNextActivity(Objects.requireNonNull(fbUser).getUid(), userName);
                         }
                         else {
                             // check why it failed
                             Exception e = task.getException();
                             Log.w(TAG, "createUserWithEmail:failure", e);
-                            String errorMessage = e.getMessage();
+                            String errorMessage = Objects.requireNonNull(e).getMessage();
                             if (e instanceof FirebaseAuthInvalidCredentialsException) {
                                 // invalid credentials. which credential?
                                 Log.e(TAG, "Invalid Credentials: "+errorMessage);
-                                if(errorMessage.contains("ERROR_INVALID_EMAIL"))
+                                if(Objects.requireNonNull(errorMessage).contains("ERROR_INVALID_EMAIL"))
                                     tilEmail.setError("Valid email address Please!");
                             }
                             else if (e instanceof FirebaseAuthUserCollisionException) {
@@ -141,7 +142,7 @@ public class Register extends AppCompatActivity {
 
     private void createUserAndNextActivity(String uid, String userName){
         // first create a User object
-        User currentUser = new User(uid);
+        stav_gordeev.triviaapp.database.User currentUser = new stav_gordeev.triviaapp.database.User(uid, userName);
         // Then write it to firebase. first reference the Realtime Database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         // and reference a new node (leaf) in the tree for the new user

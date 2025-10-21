@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
      * If it does, it signs in the user
      */
     private void signInAndVerifyUser() {
-        if (Authentication.getCurrentUser() == null)
+        if (etEmail.getText().toString().isEmpty() || etPassword.getText().toString().isEmpty())
             return;
 
         Authentication.signIn(

@@ -51,12 +51,12 @@ public class ExpIntro extends BaseActivity {
         is=getResources().openRawResource(R.raw.instructions);
         isr=new InputStreamReader(is);
         br=new BufferedReader(isr);
-        String all="";
+        StringBuilder all= new StringBuilder();
         String st;
         try {
             st=br.readLine();
             while (st!=null) {
-                all+=st+"\n";
+                all.append(st).append("\n");
                 st=br.readLine();
             }
             br.close();
@@ -64,6 +64,6 @@ public class ExpIntro extends BaseActivity {
         catch (IOException e) {
             Toast.makeText(this,"could not open", Toast.LENGTH_SHORT).show();
         }
-        return all;
+        return all.toString();
     }
 }
