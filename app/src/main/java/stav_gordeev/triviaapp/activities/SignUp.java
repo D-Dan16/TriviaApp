@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +37,7 @@ public class SignUp extends AppCompatActivity {
     TextInputLayout tilEmail, tilPassword, tilUserName;
     TextInputEditText etEmail, etPassword, etUserName;
     TextView tvHiddenRules;
-    Button fabRegister, fabCancelReg;
+    FloatingActionButton fabRegister, fabCancelReg;
     //String Holders
     String email="", password="", userName="";
     // Firebase Authentication
@@ -54,17 +55,6 @@ public class SignUp extends AppCompatActivity {
 
 
         init();
-
-
-        //when password text field is pushed
-        etPassword.setOnFocusChangeListener((view, hasFocus) -> {
-            if (hasFocus)
-                tvHiddenRules.setVisibility(View.VISIBLE);
-            else
-                tvHiddenRules.setVisibility(View.INVISIBLE);
-        });
-
-
 
 
         // when button pushed
@@ -87,8 +77,7 @@ public class SignUp extends AppCompatActivity {
                 return;
             }
             if(!isValidPassword(password)){
-                tilPassword.setError("Password Rules Below");
-                tvHiddenRules.setVisibility(View.VISIBLE);
+                tilPassword.setError("Incorrect Password Format");
                 return;
             }
 
@@ -178,7 +167,7 @@ public class SignUp extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmailReg);
         etPassword = findViewById(R.id.etPassword);
         etUserName = findViewById(R.id.etNameReg);
-        fabRegister = findViewById(R.id.fabRegister);
+        fabRegister = findViewById(R.id.fabOkReg);
         fabCancelReg = findViewById(R.id.fabCancelReg);
 
         // Initialize Firebase Auth

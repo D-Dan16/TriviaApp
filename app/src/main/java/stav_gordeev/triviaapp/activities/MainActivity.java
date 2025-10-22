@@ -38,21 +38,13 @@ import stav_gordeev.triviaapp.R;
 import stav_gordeev.triviaapp.User;
 
 public class MainActivity extends BaseActivity {
-    private FloatingActionButton fabRegister;
-    private FloatingActionButton fabLogin;
-    private CheckBox cbPersonal;
-    private EditText etEmail;
-    private EditText etPassword;
-
     String TAG = "Login";
     // UI elements
     TextInputLayout tilEmailIn, tilPasswordIn ;
     TextInputEditText etEmailIn,  etPasswordIn ;
-    FloatingActionButton bSignIn;
+    FloatingActionButton bSignIn, bSignUp;
 
     Context context;
-    TextView tvSignUpHere;
-    TextView tvForgotPassword;
     // String Holders
     String email="", password="";
     // Spannable String Holders
@@ -80,6 +72,21 @@ public class MainActivity extends BaseActivity {
         setClickableLinks();
 
         // Listener for the Sign In Button
+        signInButtonLogic();
+
+        signUpButtonLogic();
+
+
+    }
+
+    private void signUpButtonLogic() {
+        bSignUp.setOnClickListener(v -> {
+            Intent goToSignUp = new Intent(context, SignUp.class);
+            startActivity(goToSignUp);
+        });
+    }
+
+    private void signInButtonLogic() {
         bSignIn.setOnClickListener(v -> {
             email = Objects.requireNonNull(etEmailIn.getText()).toString();
             password = Objects.requireNonNull(etPasswordIn.getText()).toString();
@@ -174,8 +181,6 @@ public class MainActivity extends BaseActivity {
 
 
         });
-
-
     }
 
 
@@ -200,8 +205,6 @@ public class MainActivity extends BaseActivity {
             spannableSignUp.setSpan(new UnderlineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         // Sets the Link in the TextView and Makes the link clickable
-        tvSignUpHere.setText(spannableSignUp);
-        tvSignUpHere.setMovementMethod(LinkMovementMethod.getInstance());
 
         // listener for the Forgot Password clickable String
         ClickableSpan clickableForgotPassword = new ClickableSpan() {
@@ -237,8 +240,6 @@ public class MainActivity extends BaseActivity {
             spannableForgotPassword.setSpan(clickableForgotPassword, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             spannableForgotPassword.setSpan(new UnderlineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        tvForgotPassword.setText(spannableForgotPassword);
-        tvForgotPassword.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     void initUI() {
@@ -248,6 +249,7 @@ public class MainActivity extends BaseActivity {
         etEmailIn = findViewById(R.id.etEmailReg);
         etPasswordIn = findViewById(R.id.etPassword);
         bSignIn = findViewById(R.id.fabOkReg);
+        bSignUp = findViewById(R.id.fabRegister);
         spannableSignUp = new SpannableString(fullTextSignUp);
         spannableForgotPassword = new SpannableString(fullTextForgotPassword);
     }
