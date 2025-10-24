@@ -1,6 +1,5 @@
 package stav_gordeev.triviaapp.Helpers;
 
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -8,6 +7,8 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import androidx.core.app.NotificationCompat;
+
+import java.util.Objects;
 
 import stav_gordeev.triviaapp.R;
 
@@ -25,7 +26,7 @@ public class MusicService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String action = intent.getAction();
 
-        switch (action) {
+        switch (Objects.requireNonNull(action)) {
             case "PLAY" -> {
                 createNotification();
                 if (!mediaPlayer.isPlaying()) {
@@ -49,8 +50,8 @@ public class MusicService extends Service {
         return START_STICKY;
     }
 
-    private Notification createNotification() {
-        return new NotificationCompat.Builder(this, "music_channel")
+    private void createNotification() {
+        new NotificationCompat.Builder(this, "music_channel")
                 .setContentTitle("playing music")
                 .setContentText("playing right now")
                 .setSmallIcon(R.drawable.ic_music_note)
