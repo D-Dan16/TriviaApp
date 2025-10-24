@@ -3,8 +3,8 @@ package stav_gordeev.triviaapp.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import stav_gordeev.triviaapp.Question;
-import stav_gordeev.triviaapp.User;
+import stav_gordeev.triviaapp.Helpers.Question;
+import stav_gordeev.triviaapp.Helpers.User;
 
 public class GameGlobalsSingleton {
     private List<Question> questionList;

@@ -3,6 +3,7 @@ package stav_gordeev.triviaapp.activities;
 import static java.lang.String.*;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,9 +23,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Collections;
 
-import stav_gordeev.triviaapp.Question;
+import stav_gordeev.triviaapp.Helpers.MusicService;
+import stav_gordeev.triviaapp.Helpers.Question;
 import stav_gordeev.triviaapp.R;
-import stav_gordeev.triviaapp.User;
+import stav_gordeev.triviaapp.Helpers.User;
 
 
 public class Game extends AppCompatActivity {
@@ -59,6 +61,13 @@ public class Game extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        // --- Start Playing Music ---
+        Intent playIntent = new Intent(this, MusicService.class);
+
+        playIntent.setAction("PLAY");
+        startService(playIntent);
+
 
         initUI();
 

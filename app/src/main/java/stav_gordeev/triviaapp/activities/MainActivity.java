@@ -41,9 +41,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import stav_gordeev.triviaapp.Question;
+import stav_gordeev.triviaapp.Helpers.MusicService;
+import stav_gordeev.triviaapp.Helpers.Question;
 import stav_gordeev.triviaapp.R;
-import stav_gordeev.triviaapp.User;
+import stav_gordeev.triviaapp.Helpers.User;
 
 public class MainActivity extends BaseActivity {
     //region Fields
@@ -73,6 +74,11 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // --- Start Playing Music ---
+        Intent playIntent = new Intent(this, MusicService.class);
+        playIntent.setAction("STOP");
+        startService(playIntent);
+
 
         initUI();
 
@@ -91,6 +97,11 @@ public class MainActivity extends BaseActivity {
     }
 
     void createQuestionListInBackground() {
+
+        //TODO: temp
+        if (true) return;
+
+
         // we do a new thread because the AI will stall the main thread while coming up with questions+answers
         Thread backgroundThread = new Thread(() -> {
             try {

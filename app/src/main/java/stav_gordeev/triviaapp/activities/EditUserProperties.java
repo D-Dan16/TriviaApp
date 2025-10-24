@@ -1,5 +1,6 @@
 package stav_gordeev.triviaapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -7,6 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.R;
 
 public class EditUserProperties extends BaseActivity {
@@ -21,5 +23,10 @@ public class EditUserProperties extends BaseActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // --- Start Playing Music ---
+        Intent playIntent = new Intent(this, MusicService.class);
+        playIntent.setAction("PAUSE");
+        startService(playIntent);
     }
 }

@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.R;
 
 public class GameOver extends BaseActivity {
@@ -27,6 +28,11 @@ public class GameOver extends BaseActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // --- Start Playing Music ---
+        Intent playIntent = new Intent(this, MusicService.class);
+        playIntent.setAction("STOP");
+        startService(playIntent);
 
         init();
         Intent intent=getIntent();
