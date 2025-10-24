@@ -27,9 +27,14 @@ import stav_gordeev.triviaapp.R;
 import stav_gordeev.triviaapp.Helpers.User;
 
 
+/**
+ * The SignUp activity manages the user registration process for the application.
+ * This screen provides a form for new users to create an account using their email, a password, and a unique username.
+ * It performs input validation before using Firebase Authentication to create a new user profile.
+ * Upon successful authentication, it also stores the user's information in the Firebase Realtime Database.
+ * After a successful registration, the activity navigates the user to the main game screen.
+ */
 public class SignUp extends AppCompatActivity {
-
-
     // debug TAG
     private static final String TAG = "SignUp";
     // view objects
@@ -41,10 +46,6 @@ public class SignUp extends AppCompatActivity {
     String email="", password="", userName="";
     // Firebase Authentication
     private FirebaseAuth mAuth;
-
-
-
-
 
 
     @Override
@@ -133,6 +134,15 @@ public class SignUp extends AppCompatActivity {
     }  // onCreate
 
 
+    /**
+     * Creates a User object and saves it to the Firebase Realtime Database.
+     * On successful creation, it navigates to the Game activity.
+     * If the user creation fails, it logs an error and displays a toast message.
+     * It also checks if the global question list is ready before starting the game.
+     *
+     * @param uid The unique user ID from Firebase Authentication.
+     * @param userName The username provided by the user during sign-up.
+     */
     private void createUserAndNextActivity(String uid, String userName){
         // first create a User object
         User currentUser = new User(uid, userName);
@@ -163,6 +173,13 @@ public class SignUp extends AppCompatActivity {
     }
 
 
+    /**
+     * Validates the password format.
+     * The password must be at least 6 characters long and contain at least one letter and one digit.
+     *
+     * @param password The password string to validate.
+     * @return true if the password is valid, false otherwise.
+     */
     private boolean isValidPassword(String password) {
         // Password must be at least 6 characters long and contain at least one letter and one digit
         return password.matches(".*[A-Za-z].*") && password.matches(".*\\d.*") && password.length() >= 6;

@@ -18,6 +18,15 @@ import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.Helpers.TriviaQuestionGenerator;
 import stav_gordeev.triviaapp.R;
 
+/**
+ * Represents the "Game Over" screen activity that is displayed when a trivia game session ends.
+ * This activity shows the player's final score and provides options to either retry the game
+ * or return to the main menu. It also handles stopping the background music and pre-loading
+ * a new set of questions for a potential next game.
+ *
+ * @see BaseActivity
+ * @author Stav Gordeev
+ */
 public class GameOver extends BaseActivity {
 
     LottieAnimationView lavGameOver;
@@ -60,6 +69,12 @@ public class GameOver extends BaseActivity {
 
     }
 
+    /**
+     * Initializes and sets OnClickListeners for the UI buttons.
+     * The "Retry" button will start a new game session if questions are loaded.
+     * If questions are not yet ready, it displays a toast message to the user.
+     * The "To Main Menu" button navigates the user back to the MainActivity.
+     */
     private void registerButtons() {
         bRetry.setOnClickListener(v->{
             if (GameGlobalsSingleton.getInstance().getQuestionList().isEmpty()) {

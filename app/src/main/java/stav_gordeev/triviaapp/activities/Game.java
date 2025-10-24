@@ -32,6 +32,21 @@ import stav_gordeev.triviaapp.R;
 import stav_gordeev.triviaapp.Helpers.User;
 
 
+/**
+ * Represents the main game screen activity where the trivia game is played.
+ * This activity is responsible for:
+ * - Displaying trivia questions and their multiple-choice answers.
+ * - Managing a countdown timer for each question.
+ * - Handling user's answer selection and submission.
+ * - Keeping track of the user's score and progress through the game.
+ * - Providing visual feedback for correct and incorrect answers.
+ * - At the end of the game, updating the user's stats (high score, total games played)
+ *   in Firebase Realtime Database.
+ * - Navigating to the GameOver activity upon game completion.
+ * - Controlling background music playback via MusicService.
+ *
+ * The questions for the game are retrieved from the {@link GameGlobalsSingleton}.
+ */
 public class Game extends AppCompatActivity {
 
     private static final String TAG = "GameActivity"; // For logging
@@ -90,6 +105,12 @@ public class Game extends AppCompatActivity {
         sendAnswerButtonLogic();
     }
 
+    /**
+     * Initializes and starts a countdown timer for the current question.
+     * The timer updates a TextView every second to show the remaining time.
+     * If the timer finishes before the user answers, it displays a "Time's Up!" message,
+     * advances to the next question, and calls {@link #loadNextQuestion()} to display it.
+     */
     private void startCountDownTimer() {
         curTimerCountdown = new CountDownTimer(timeForQuestion, 1000) {
             @SuppressLint("SetTextI18n")
@@ -105,6 +126,12 @@ public class Game extends AppCompatActivity {
         }.start();
     }
 
+    /**
+     * Binds the logic for submitting a user's answer. When the user submits,
+     * it validates an answer has been chosen, processes the answer for correctness,
+     * provides visual feedback, and proceeds to the next question. If no
+     * answer is selected, it prompts the user to choose one.
+     */
     private void sendAnswerButtonLogic() {
         bSubmit.setOnClickListener(v -> {
             // see that any chip is checked
@@ -129,6 +156,13 @@ public class Game extends AppCompatActivity {
         iv.animate().alpha(1).setDuration(500).withEndAction(() -> iv.animate().alpha(0).setDuration(500).start());
     }
 
+    /**
+     * Converts a Chip's resource ID to a zero-based integer index.
+     * This is used to map the selected answer Chip to a corresponding index in the answers list.
+     *
+     * @param chipId The resource ID of the selected Chip from the ChipGroup.
+     * @return An integer from 0 to 3 representing the Chip's position, or -1 if the ID is not recognized.
+     */
     private int chipIdToInt(int chipId) {
         if (chipId == R.id.cAns1)
             return 0;
@@ -142,6 +176,14 @@ public class Game extends AppCompatActivity {
             return -1;
     }
 
+    /**
+     * Manages the game's question flow. It checks if there are questions available and if the game
+     * should continue. If the game is ongoing, it calls {@link #showNextQuestion()} to display
+     * the next question and restarts the countdown timer. If the game is over (all questions have been
+     * answered), it updates the user's statistics (high score, total games played) in both the local
+     * singleton and the Firebase Realtime Database. Finally, it navigates to the GameOver activity,
+     * passing the final score.
+     */
     @SuppressLint("DefaultLocale")
     private void loadNextQuestion() {
         if (questionList.isEmpty()) {
@@ -200,6 +242,14 @@ public class Game extends AppCompatActivity {
         //endregion
     }
 
+    /**
+     * Displays the next question and its possible answers on the screen.
+     * It updates the progress text view, clears any previous answer selections,
+     * and enables the submit button. It retrieves the current question from the
+     * question list based on the {@code currentQuestionIndex}, scrambles the answers
+     * to randomize their positions, and then sets the question text and answer chips.
+     * The correct answer's position is determined by the {@link #scrambleAnswers(Question)} method.
+     */
     @SuppressLint("DefaultLocale")
     private void showNextQuestion() {
         tvProgress.setText(format("%d/%d", currentQuestionIndex + 1, questionsInGame));

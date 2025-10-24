@@ -30,6 +30,12 @@ public class BaseActivity extends AppCompatActivity {
         setupToolbar();
     }
 
+    /**
+     * Initializes and sets up the toolbar for the activity.
+     * This method finds the toolbar view by its ID, and if it exists,
+     * sets it as the activity's action bar. This allows the toolbar
+     * to host the options menu and other action items.
+     */
     protected void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {

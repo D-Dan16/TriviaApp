@@ -42,6 +42,20 @@ import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.R;
 import stav_gordeev.triviaapp.Helpers.User;
 
+/**
+ * Represents the main login screen of the application.
+ * This activity handles user authentication (sign-in) via Firebase Authentication.
+ * It provides options to sign in, navigate to the sign-up screen, and reset a forgotten password.
+ * The activity also manages user preferences for remembering login credentials using SharedPreferences.
+ * Upon successful login, it retrieves the user's data from Firebase Realtime Database and navigates
+ * to the main game screen. It also pre-fetches trivia questions in the background to ensure a smooth
+ * transition to the game.
+ *
+ * @author Stav Gordeev
+ * @see SignUp
+ * @see Game
+ * @see BaseActivity
+ */
 public class MainActivity extends BaseActivity {
     //region Fields
     String TAG = "Login";
@@ -104,6 +118,9 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    /**
+     * Clears saved SharedPreferences when invoked by delete button.
+     */
     private void deleteUserPreferencesButton() {
         bDeletePreferences.setOnClickListener(v -> {
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -120,6 +137,12 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+
+    /**
+     * Sets up the logic for the sign-in button by attaching an OnClickListener.
+     * It validates the user's email and password, checks if trivia questions are loaded, and then attempts to authenticate with Firebase.
+     * Upon successful authentication, it proceeds to the main game activity; otherwise, it logs the failure reason and displays an error message.
+     */
     private void signInButtonLogic() {
         bSignIn.setOnClickListener(v -> {
             email = Objects.requireNonNull(etEmailReg.getText()).toString();
@@ -156,6 +179,17 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    /**
+     * Logs the specific reason for a failed sign-in attempt and displays a user-friendly
+     * error message.
+     * <p>
+     * This method is called when a Firebase `signInWithEmailAndPassword` task fails. It inspects
+     * the exception from the task to determine the cause of the failure (e.g., invalid user,
+     * wrong password, network issues) and logs a detailed error. It then presents a
+     * corresponding, easy-to-understand message to the user via a Toast.
+     *
+     * @param task The completed, unsuccessful Task from the Firebase sign-in attempt.
+     */
     private void logReasonForUnsuccessfulSignIn(Task<AuthResult> task) {
         // If sign in fails, display a message to the user.
         Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -190,6 +224,12 @@ public class MainActivity extends BaseActivity {
         Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Finalizes the sign-in process after a successful Firebase authentication.
+     * This method saves user credentials if "remember me" is checked, then retrieves the user's unique ID.
+     * It then fetches the corresponding user object from the Firebase Realtime Database and stores it in a global singleton.
+     * Finally, it navigates the user to the main game activity.
+     */
     private void executeSignIn(Task<AuthResult> task) {
         // Sign in success, update UI with the signed-in user's information
         if (cbPersonal.isChecked()) {
@@ -237,6 +277,13 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    /**
+     * Retrieves user's email and password from SharedPreferences, if they exist,
+     * and pre-fills the corresponding EditText fields. This is typically used to
+     * remember user credentials if they previously opted to save them. The method
+     * gracefully handles cases where the preferences might not exist by catching
+     * exceptions.
+     */
     private void addUserPreferencesDataToEditTexts() {
         try {
             String password = sharedPref.getString("password", "");
@@ -250,6 +297,14 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    /**
+     * Sets up clickable links for "Sign up here" and "Forgot Password".
+     * It uses SpannableString to make parts of the text clickable and underlined.
+     * The "Sign up" link navigates to the SignUp activity.
+     * The "Forgot Password" link triggers a Firebase password reset email to be sent
+     * to the email address entered in the email field. It performs validation to ensure
+     * an email has been entered before attempting to send the reset link.
+     */
     private void setClickableLinks() {
         // listener for the sign up clickable String
         ClickableSpan clickableSignUp = new ClickableSpan() {
