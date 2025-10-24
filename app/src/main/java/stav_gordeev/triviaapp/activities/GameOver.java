@@ -2,7 +2,10 @@ package stav_gordeev.triviaapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -12,12 +15,16 @@ import androidx.core.view.WindowInsetsCompat;
 import com.airbnb.lottie.LottieAnimationView;
 
 import stav_gordeev.triviaapp.Helpers.MusicService;
+import stav_gordeev.triviaapp.Helpers.TriviaQuestionGenerator;
 import stav_gordeev.triviaapp.R;
 
 public class GameOver extends BaseActivity {
 
     LottieAnimationView lavGameOver;
-    TextView tvUserScore,tvPointsGO,tvAllScores;
+    TextView tvPointsGO,tvAllScores;
+    private Button bRetry;
+    private Button bToMainMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,26 +36,45 @@ public class GameOver extends BaseActivity {
             return insets;
         });
 
-        // --- Start Playing Music ---
+        // --- Pause Music ---
         Intent playIntent = new Intent(this, MusicService.class);
         playIntent.setAction("STOP");
         startService(playIntent);
 
-        init();
+        tvPointsGO=findViewById(R.id.tvPointsGO);
+        tvAllScores=findViewById(R.id.tvAllScores);
+        bRetry = findViewById(R.id.bRetry);
+        bToMainMenu = findViewById(R.id.bToMainMenu);
+
         Intent intent=getIntent();
         int points = intent.getIntExtra("points",0);
-        String email=intent.getStringExtra("email");
-
+        
         tvPointsGO.setText(Integer.toString(points));
-        tvUserScore.setText(email);
+
+
+        // Start loading in a new set of questions for the player to play!
+        TriviaQuestionGenerator.createQuestionListInBackground(this);
+
+
+        registerButtons();
 
     }
 
-    public void init()
-    {
-        tvPointsGO=findViewById(R.id.tvPointsGO);
-        tvUserScore=findViewById(R.id.tvUserScore);
-        tvAllScores=findViewById(R.id.tvAllScores);
+    private void registerButtons() {
+        bRetry.setOnClickListener(v->{
+            if (GameGlobalsSingleton.getInstance().getQuestionList().isEmpty()) {
+                Toast.makeText(this, "Wait a little more until the questions are ready to be presented ", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            Intent toGame = new Intent(this, Game.class);
+            startActivity(toGame);
+        });
+
+        bToMainMenu.setOnClickListener(v->{
+            Intent toMenu = new Intent(this, MainActivity.class);
+            startActivity(toMenu);
+        });
     }
 
 

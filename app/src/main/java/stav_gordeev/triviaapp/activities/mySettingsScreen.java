@@ -24,7 +24,7 @@ public class mySettingsScreen extends BaseActivity {
             return insets;
         });
 
-        // --- Start Playing Music ---
+        // --- Pause Music ---
         Intent playIntent = new Intent(this, MusicService.class);
         playIntent.setAction("PAUSE");
         startService(playIntent);

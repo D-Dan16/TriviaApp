@@ -52,7 +52,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // --- Start Playing Music ---
+        // --- Pause Music ---
         Intent playIntent = new Intent(this, MusicService.class);
         playIntent.setAction("PAUSE");
         startService(playIntent);
@@ -142,12 +142,17 @@ public class SignUp extends AppCompatActivity {
         DatabaseReference userNode = database.getReference("Users").child(uid);
         // This is the Firebase Realtime Database write method
         // we place a listener on it, to see that its successful
-        // the setValue method returns a Task<Void> - it doesnt return any object
+        // the setValue method returns a Task<Void> - it doesn't return any object
         userNode.setValue(currentUser).addOnCompleteListener(aVoid -> {
-            // if successfull
+            // if successfully
             Log.d(TAG, "User created successfully with uid " + uid);
             Toast.makeText(SignUp.this, "User created successfully.", Toast.LENGTH_SHORT).show();
-            // go to dbFetchWait screen
+
+            if (GameGlobalsSingleton.getInstance().getQuestionList().isEmpty()) {
+                Toast.makeText(this, "Wait a little more until the questions are ready to be presented ", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             Intent toGame = new Intent(this, Game.class);
             startActivity(toGame);
         }).addOnFailureListener(e -> {

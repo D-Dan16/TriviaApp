@@ -68,7 +68,7 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        // --- Start Playing Music ---
+        // --- Play Music ---
         Intent playIntent = new Intent(this, MusicService.class);
         playIntent.setAction("PLAY");
         startService(playIntent);
@@ -193,6 +193,7 @@ public class Game extends AppCompatActivity {
 
         // Go to Game Over Activity
         Intent gameOverIntent = new Intent(this, GameOver.class);
+        gameOverIntent.putExtra("correctAnswersCounter", correctAnswersCounter);
         startActivity(gameOverIntent);
         finish();
 

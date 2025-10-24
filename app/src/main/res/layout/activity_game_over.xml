@@ -26,16 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
-<!--        <com.airbnb.lottie.LottieAnimationView-->
-<!--            android:id="@+id/lavGameOverAnimation"-->
-<!--            android:layout_width="200dp"-->
-<!--            android:layout_height="200dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            app:lottie_rawRes="@raw/your_animation_file_name"-->
-<!--            app:lottie_autoPlay="true"-->
-<!--            app:lottie_loop="true" />-->
-
-
         <Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
@@ -51,18 +41,43 @@
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/tvPointsGO"
-            style="@style/SecondaryHeaderTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="0"
-            android:textStyle="normal"
-            tools:ignore="HardcodedText" />
+                android:id="@+id/tvPointsGO"
+                style="@style/SecondaryHeaderTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0/5"
+                android:textStyle="normal"
+                tools:ignore="HardcodedText" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+            <Button
+                    android:text="Retry?"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bRetry"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp" />
+
+            <Button
+                    android:text="To Main Menu?"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bToMainMenu"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp" />
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"

@@ -1,5 +1,7 @@
 package stav_gordeev.triviaapp.activities;
 
+import static stav_gordeev.triviaapp.Helpers.TriviaQuestionGenerator.createQuestionListInBackground;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,10 +9,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import com.google.ai.client.generativeai.GenerativeModel;
-import com.google.ai.client.generativeai.java.GenerativeModelFutures;
-import com.google.ai.client.generativeai.type.Content;
-import com.google.ai.client.generativeai.type.GenerateContentResponse;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -24,7 +22,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,15 +36,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import android.content.Context;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import stav_gordeev.triviaapp.Helpers.MusicService;
-import stav_gordeev.triviaapp.Helpers.Question;
 import stav_gordeev.triviaapp.R;
 import stav_gordeev.triviaapp.Helpers.User;
 
@@ -84,7 +75,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // --- Start Playing Music ---
+        // --- Pause Music ---
         Intent playIntent = new Intent(this, MusicService.class);
         playIntent.setAction("STOP");
         startService(playIntent);
@@ -102,7 +93,7 @@ public class MainActivity extends BaseActivity {
 
         setClickableLinks();
 
-        createQuestionListInBackground();
+        createQuestionListInBackground(context);
 
         // Listener for the Sign In Button
         signInButtonLogic();
@@ -121,59 +112,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    void createQuestionListInBackground() {
-
-        // T ODO: temp
-//        if (true) return;
-
-
-        // we do a new thread because the AI will stall the main thread while coming up with questions+answers
-        Thread backgroundThread = new Thread(() -> {
-            try {
-
-                // access a model.
-                GenerativeModelFutures model =  GenerativeModelFutures.from(new GenerativeModel(
-                        "gemini-2.5-flash",
-                        getString(R.string.API_KEY)
-                ));
-
-                Content prompt = new Content.Builder()
-                        .addText(getString(R.string.gemini_prompt))
-                        .build();
-
-                ListenableFuture<GenerateContentResponse> futureResponse = model.generateContent(prompt);
-
-                // get the output
-                String output = futureResponse.get().getText();
-
-
-                // Parse JSON
-                JSONArray arr = new JSONObject(output).getJSONArray("trivia_questions");
-
-                List<Question> questionList = new ArrayList<>();
-
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject obj = arr.getJSONObject(i);
-                    Question q = new Question(
-                            i,
-                            obj.getString("question"),
-                            obj.getString("correct_answer"),
-                            obj.getString("wrong_answer_1"),
-                            obj.getString("wrong_answer_2"),
-                            obj.getString("wrong_answer_3")
-                    );
-                    questionList.add(q);
-                }
-
-                // Save to singleton
-                GameGlobalsSingleton.getInstance().setQuestionList(questionList);
-
-            } catch (Exception e) {
-                Log.e(TAG, "Error creating question list", e);
-            }
-        });
-        backgroundThread.start();
-    }
 
     private void signUpButtonLogic() {
         bSignUp.setOnClickListener(v -> {
