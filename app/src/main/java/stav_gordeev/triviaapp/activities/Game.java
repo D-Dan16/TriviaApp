@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Collections;
 
+import stav_gordeev.triviaapp.Constants;
 import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.Helpers.Question;
 import stav_gordeev.triviaapp.R;
@@ -56,6 +59,9 @@ public class Game extends AppCompatActivity {
     // this should also be put as GameGlobal !!
     String currentCategory = "SolarSystem";
     private TextView tvProgress;
+    private TextView tvTimer;
+    private CountDownTimer curTimerCountdown;
+    private long timeForQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +70,42 @@ public class Game extends AppCompatActivity {
 
         // --- Start Playing Music ---
         Intent playIntent = new Intent(this, MusicService.class);
-
         playIntent.setAction("PLAY");
         startService(playIntent);
-
 
         initUI();
 
         // Initialize questionList
         questionList = GameGlobalsSingleton.getInstance().getQuestionList();
 
+        // TODO: Temp the timer will be a fixed num that can't be configurable
+        timeForQuestion = Constants.timeForQuestion;
+
+        startCountDownTimer();
+
+
         loadNextQuestion();
 
+
+        sendAnswerButtonLogic();
+    }
+
+    private void startCountDownTimer() {
+        curTimerCountdown = new CountDownTimer(timeForQuestion, 1000) {
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                tvTimer.setText("Time Left: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                Toast.makeText(Game.this, "Time's Up!", Toast.LENGTH_SHORT).show();
+                currentQuestionIndex++;
+                loadNextQuestion();
+            }
+        }.start();
+    }
+
+    private void sendAnswerButtonLogic() {
         bSubmit.setOnClickListener(v -> {
             // see that any chip is checked
             if (!cgAnswers.getCheckedChipIds().isEmpty()) {
@@ -89,7 +119,6 @@ public class Game extends AppCompatActivity {
                     flicker(ivWrong);
 
                 currentQuestionIndex++;
-
                 loadNextQuestion();
             } else
                 Toast.makeText(this, "Pick one!", Toast.LENGTH_SHORT).show();
@@ -115,7 +144,6 @@ public class Game extends AppCompatActivity {
 
     @SuppressLint("DefaultLocale")
     private void loadNextQuestion() {
-
         if (questionList.isEmpty()) {
             Log.e(TAG, "loadNextQuestion called but questionList is empty.");
             //  "no questions" state
@@ -126,24 +154,28 @@ public class Game extends AppCompatActivity {
             return;
         }
 
+        curTimerCountdown.cancel();
+
         // check what question is now
         if (currentQuestionIndex < questionsInGame) {
             showNextQuestion();
+            startCountDownTimer();
             return;
         }
 
+
+        //region Game Over
         User curUser = GameGlobalsSingleton.getInstance().getCurrentUser();
 
-        // Game Over
         // here confetti animation
         if (correctAnswersCounter > curUser.getHighestScore()) {
             // Toast message
             Toast.makeText(this, "New High Score of " + correctAnswersCounter + "!", Toast.LENGTH_LONG).show();
             // set in the GameGlobals user object
             curUser.setHighestScore(correctAnswersCounter);
-        }
-        else
+        } else {
             Toast.makeText(this, "Game Over You got " + correctAnswersCounter + " out of " + questionsInGame + " correct!", Toast.LENGTH_LONG).show();
+        }
         // in any case update that a game was played
 
         curUser.setTotalGamesPlayed(curUser.getTotalGamesPlayed() + 1);
@@ -157,8 +189,17 @@ public class Game extends AppCompatActivity {
         // set the up to date values from game globals
         userRef.child("highestScore").setValue(curUser.getHighestScore());
         userRef.child("totalGamesPlayed").setValue(curUser.getTotalGamesPlayed());
+
+
+        // Go to Game Over Activity
+        Intent gameOverIntent = new Intent(this, GameOver.class);
+        startActivity(gameOverIntent);
+        finish();
+
+        //endregion
     }
 
+    @SuppressLint("DefaultLocale")
     private void showNextQuestion() {
         tvProgress.setText(format("%d/%d", currentQuestionIndex + 1, questionsInGame));
 
@@ -195,6 +236,7 @@ public class Game extends AppCompatActivity {
     }
 
     private void initUI() {
+        tvTimer = findViewById(R.id.tvTimer);
         tvProgress = findViewById(R.id.tvProgress);
         cgAnswers = findViewById(R.id.cgAnswers);
         cAns1 = findViewById(R.id.cAns1);

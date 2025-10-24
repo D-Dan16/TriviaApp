@@ -123,8 +123,8 @@ public class MainActivity extends BaseActivity {
 
     void createQuestionListInBackground() {
 
-        //TODO: temp
-        if (true) return;
+        // T ODO: temp
+//        if (true) return;
 
 
         // we do a new thread because the AI will stall the main thread while coming up with questions+answers
@@ -194,6 +194,12 @@ public class MainActivity extends BaseActivity {
                 tilPasswordIn.setError("Password Required");
                 return;
             }
+
+            if (GameGlobalsSingleton.getInstance().getQuestionList().isEmpty()) {
+                Toast.makeText(MainActivity.this, "Wait a little more until the questions are ready to be presented ", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             Toast.makeText(MainActivity.this, "Signing In", Toast.LENGTH_SHORT).show();
 
             // this is firebase method to sign in user with email and password

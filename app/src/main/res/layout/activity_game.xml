@@ -26,12 +26,12 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/tvTimer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Time Elapsed:"
-                android:textSize="20sp" />
+                    android:id="@+id/tvTimer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Time Left:"
+                    android:textSize="20sp" />
 
             <Space
                 android:layout_width="match_parent"
