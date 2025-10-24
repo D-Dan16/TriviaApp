@@ -2,27 +2,18 @@ package stav_gordeev.triviaapp;
 
 public class Question {
     private int level;
-    private String id, queText, ansCorrect, ansWrong1, ansWrong2, ansWrong3;
+    private String queText, ansCorrect, ansWrong1, ansWrong2, ansWrong3;
 
     public Question() {
     }
 
-    public Question(String id, int level, String queText, String ansCorrect, String andWrong1, String andWrong2, String ansWrong3) {
-        this.id = id;
+    public Question(int level, String queText, String ansCorrect, String andWrong1, String andWrong2, String ansWrong3) {
         this.level = level;
         this.queText = queText;
         this.ansCorrect = ansCorrect;
         this.ansWrong1 = andWrong1;
         this.ansWrong2 = andWrong2;
         this.ansWrong3 = ansWrong3;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public int getLevel() {
@@ -71,13 +62,5 @@ public class Question {
 
     public void setAnsWrong3(String ansWrong3) {
         this.ansWrong3 = ansWrong3;
-    }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-                "id=" + id + '\'' +
-                ", queText=\'" + queText +
-                '}';
     }
 }

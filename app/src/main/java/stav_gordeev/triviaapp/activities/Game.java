@@ -1,5 +1,8 @@
 package stav_gordeev.triviaapp.activities;
 
+import static java.lang.String.*;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,21 +24,19 @@ import java.util.Collections;
 
 import stav_gordeev.triviaapp.Question;
 import stav_gordeev.triviaapp.R;
-import stav_gordeev.triviaapp.activities.GameGlobalsSingleton;
+import stav_gordeev.triviaapp.User;
 
 
 public class Game extends AppCompatActivity {
 
     private static final String TAG = "GameActivity"; // For logging
 
-    // Firebase references
-    private FirebaseDatabase database;
     private DatabaseReference questionsRef; // A reference to the root or a specific path
 
     // Using ArrayList to store the Question objects
     private List<Question> questionList; // Declare the list
     private List<Question> tempQuestionsHolder; // A temporary list to hold questions while fetching
-    private boolean initialLoadDone = false; // Flag to ensure initial load happens only once
+    private final boolean initialLoadDone = false; // Flag to ensure initial load happens only once
     // private int levelsSuccessfullyFetched = 0; // Counter for successfully fetched levels
 
     // UI elements
@@ -52,6 +53,7 @@ public class Game extends AppCompatActivity {
     int questionsInGame = GameGlobalsSingleton.getInstance().getLevelsInGame();
     // this should also be put as GameGlobal !!
     String currentCategory = "SolarSystem";
+    private TextView tvProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +88,7 @@ public class Game extends AppCompatActivity {
     }
 
     private void flicker(ImageView iv) {
-        // temp function - USE vAnimations !
-
-        iv.animate().alpha(1).setDuration(500).withEndAction(() -> {
-            iv.animate().alpha(0).setDuration(500).start();
-        });
+        iv.animate().alpha(1).setDuration(500).withEndAction(() -> iv.animate().alpha(0).setDuration(500).start());
     }
 
     private int chipIdToInt(int chipId) {
@@ -106,12 +104,13 @@ public class Game extends AppCompatActivity {
             return -1;
     }
 
+    @SuppressLint("DefaultLocale")
     private void loadNextQuestion() {
 
         if (questionList.isEmpty()) {
             Log.e(TAG, "loadNextQuestion called but questionList is empty.");
             //  "no questions" state
-            tvQuestion.setText("OOPS.. No Questions found!");
+            tvQuestion.setText(R.string.oops_no_questions_found);
             bSubmit.setEnabled(false);
             for (int i = 0; i < cgAnswers.getChildCount(); i++)
                 cgAnswers.getChildAt(i).setEnabled(false);
@@ -120,46 +119,55 @@ public class Game extends AppCompatActivity {
 
         // check what question is now
         if (currentQuestionIndex < questionsInGame) {
-            // unchecks all chips
-            cgAnswers.clearCheck();
-            bSubmit.setEnabled(true);
-
-            // retrieve next question
-            Question currentQuestion = questionList.get(currentQuestionIndex);
-            // here scramble answers function
-            List<String> answers = scrambleAnswers(currentQuestion);
-            // set question text and answers
-            tvQuestion.setText(currentQuestion.getQueText());
-            cAns1.setText(answers.get(0));
-            cAns2.setText(answers.get(1));
-            cAns3.setText(answers.get(2));
-            cAns4.setText(answers.get(3));
-
-        } else {
-            // Game Over
-            // here confetti animation
-            if (correctAnswersCounter > GameGlobalsSingleton.getInstance().getCurrentUser().getHighestScore()) {
-                // Toast message
-                Toast.makeText(this, "New High Score of " + correctAnswersCounter + "!", Toast.LENGTH_LONG).show();
-                // set in the GameGlobals user opbject
-                GameGlobalsSingleton.getInstance().getCurrentUser().setHighestScore(correctAnswersCounter);
-            }
-            else
-                Toast.makeText(this, "Game Over You got " + correctAnswersCounter + " out of " + questionsInGame + " correct!", Toast.LENGTH_LONG).show();
-            // in any case update that a game was played
-            // NEED TO IMPLEMENT A REPEAT GAME BUTTON AND A FINAL ACTIVITY WITH SCORES !!!!!
-            GameGlobalsSingleton.getInstance().getCurrentUser().setTotalGamesPlayed(
-                    GameGlobalsSingleton.getInstance().getCurrentUser().getTotalGamesPlayed() + 1);
-            // we also want to update this info in the Firebase Realtime Database
-            Log.d(TAG, "Updating user info in Firebase uid" + GameGlobalsSingleton.getInstance().getCurrentUser().getUid());
-            // this is the Firebase Database Object
-            database = FirebaseDatabase.getInstance();
-            // this is the reference to the specific user node in the database
-            DatabaseReference userRef = database.getReference("Users").child(GameGlobalsSingleton.getInstance().getCurrentUser().getUid());
-            // set the up to date values from game globals
-            userRef.child("highestScore").setValue(GameGlobalsSingleton.getInstance().getCurrentUser().getHighestScore());
-            userRef.child("totalGamesPlayed").setValue(GameGlobalsSingleton.getInstance().getCurrentUser().getTotalGamesPlayed());
+            showNextQuestion();
+            return;
         }
+
+        User curUser = GameGlobalsSingleton.getInstance().getCurrentUser();
+
+        // Game Over
+        // here confetti animation
+        if (correctAnswersCounter > curUser.getHighestScore()) {
+            // Toast message
+            Toast.makeText(this, "New High Score of " + correctAnswersCounter + "!", Toast.LENGTH_LONG).show();
+            // set in the GameGlobals user object
+            curUser.setHighestScore(correctAnswersCounter);
+        }
+        else
+            Toast.makeText(this, "Game Over You got " + correctAnswersCounter + " out of " + questionsInGame + " correct!", Toast.LENGTH_LONG).show();
+        // in any case update that a game was played
+
+        curUser.setTotalGamesPlayed(curUser.getTotalGamesPlayed() + 1);
+        // we also want to update this info in the Firebase Realtime Database
+        Log.d(TAG, "Updating user info in Firebase uid" + curUser.getUid());
+        // this is the Firebase Database Object
+        // Firebase references
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        // this is the reference to the specific user node in the database
+        DatabaseReference userRef = database.getReference("Users").child(curUser.getUid());
+        // set the up to date values from game globals
+        userRef.child("highestScore").setValue(curUser.getHighestScore());
+        userRef.child("totalGamesPlayed").setValue(curUser.getTotalGamesPlayed());
+    }
+
+    private void showNextQuestion() {
+        tvProgress.setText(format("%d/%d", currentQuestionIndex + 1, questionsInGame));
+
+
+        // unchecks all chips
+        cgAnswers.clearCheck();
+        bSubmit.setEnabled(true);
+
+        // retrieve next question
+        Question currentQuestion = questionList.get(currentQuestionIndex);
+        // here scramble answers function
+        List<String> answers = scrambleAnswers(currentQuestion);
+        // set question text and answers
+        tvQuestion.setText(currentQuestion.getQueText());
+        cAns1.setText(answers.get(0));
+        cAns2.setText(answers.get(1));
+        cAns3.setText(answers.get(2));
+        cAns4.setText(answers.get(3));
     }
 
     private List<String> scrambleAnswers(Question question) {
@@ -178,6 +186,7 @@ public class Game extends AppCompatActivity {
     }
 
     private void initUI() {
+        tvProgress = findViewById(R.id.tvProgress);
         cgAnswers = findViewById(R.id.cgAnswers);
         cAns1 = findViewById(R.id.cAns1);
         cAns2 = findViewById(R.id.cAns2);

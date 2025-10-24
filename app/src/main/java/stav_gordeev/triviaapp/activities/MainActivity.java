@@ -2,23 +2,25 @@ package stav_gordeev.triviaapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.ai.client.generativeai.GenerativeModel;
+import com.google.ai.client.generativeai.java.GenerativeModelFutures;
+import com.google.ai.client.generativeai.type.Content;
+import com.google.ai.client.generativeai.type.GenerateContentResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -32,12 +34,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import android.content.Context;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import stav_gordeev.triviaapp.Question;
 import stav_gordeev.triviaapp.R;
 import stav_gordeev.triviaapp.User;
 
 public class MainActivity extends BaseActivity {
+    //region Fields
     String TAG = "Login";
     // UI elements
     TextInputLayout tilEmailIn, tilPasswordIn ;
@@ -57,12 +66,13 @@ public class MainActivity extends BaseActivity {
     DatabaseReference usersDBRef;   // Firebase Realtime Database Users Reference
     String uid="";                 // Firebase User ID to be retrieved from Firebase Authentication
     User currentUser;// User object to be constructed
-
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         initUI();
 
@@ -71,12 +81,62 @@ public class MainActivity extends BaseActivity {
 
         setClickableLinks();
 
+        createQuestionListInBackground();
+
         // Listener for the Sign In Button
         signInButtonLogic();
 
         signUpButtonLogic();
 
+    }
 
+    void createQuestionListInBackground() {
+        // we do a new thread because the AI will stall the main thread while coming up with questions+answers
+        Thread backgroundThread = new Thread(() -> {
+            try {
+
+                // access a model.
+                GenerativeModelFutures model =  GenerativeModelFutures.from(new GenerativeModel(
+                        "gemini-2.5-flash",
+                        getString(R.string.API_KEY)
+                ));
+
+                Content prompt = new Content.Builder()
+                        .addText(getString(R.string.gemini_prompt))
+                        .build();
+
+                ListenableFuture<GenerateContentResponse> futureResponse = model.generateContent(prompt);
+
+                // get the output
+                String output = futureResponse.get().getText();
+
+
+                // Parse JSON
+                JSONArray arr = new JSONObject(output).getJSONArray("trivia_questions");
+
+                List<Question> questionList = new ArrayList<>();
+
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject obj = arr.getJSONObject(i);
+                    Question q = new Question(
+                            i,
+                            obj.getString("question"),
+                            obj.getString("correct_answer"),
+                            obj.getString("wrong_answer_1"),
+                            obj.getString("wrong_answer_2"),
+                            obj.getString("wrong_answer_3")
+                    );
+                    questionList.add(q);
+                }
+
+                // Save to singleton
+                GameGlobalsSingleton.getInstance().setQuestionList(questionList);
+
+            } catch (Exception e) {
+                Log.e(TAG, "Error creating question list", e);
+            }
+        });
+        backgroundThread.start();
     }
 
     private void signUpButtonLogic() {
@@ -131,7 +191,7 @@ public class MainActivity extends BaseActivity {
                                         startActivity(goToGame);
                                     }
                                     else {
-                                        Log.e(TAG, "User objects returned NULL");
+                                        Log.e(TAG, "User objects returned NULL",task.getException());
                                         Toast.makeText(MainActivity.this, "Failed to retrieve User information", Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -154,24 +214,24 @@ public class MainActivity extends BaseActivity {
                                 // No user record found for the provided email address.
                                 // This could mean the email is not registered.
                                 errorMessage = "No account found with this email address.";
-                                Log.e(TAG, "FirebaseAuthInvalidUserException: " + exception.getMessage());
+                                Log.e(TAG, "FirebaseAuthInvalidUserException: " + exception.getMessage(),task.getException());
                                 // You might want to update a specific UI element, e.g., tilEmail.setError(errorMessage);
                             } else if (exception instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The supplied credential (usually password) is wrong.
                                 errorMessage = "Incorrect password. Please try again.";
-                                Log.e(TAG, "FirebaseAuthInvalidCredentialsException: " + exception.getMessage());
+                                Log.e(TAG, "FirebaseAuthInvalidCredentialsException: " + exception.getMessage(),task.getException());
                                 // You might want to update a specific UI element, e.g., tilPassword.setError(errorMessage);
                             } else if (exception instanceof FirebaseNetworkException) {
                                 // A network error (such as timeout, interrupted connection or unreachable host) has occurred.
                                 errorMessage = "Network error. Please check your connection.";
-                                Log.e(TAG, "FirebaseNetworkException: " + exception.getMessage());
+                                Log.e(TAG, "FirebaseNetworkException: " + exception.getMessage(),task.getException());
                             } else {
                                 // Other types of exceptions (less common for typical login failures)
                                 // You can get the generic message from the exception
                                 if (exception != null && exception.getMessage() != null) {
                                     errorMessage = exception.getMessage();
                                 }
-                                Log.e(TAG, "Other authentication error: " + errorMessage);
+                                Log.e(TAG, "Other authentication error: " + errorMessage,task.getException());
                             }
 
                             Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_LONG).show();
