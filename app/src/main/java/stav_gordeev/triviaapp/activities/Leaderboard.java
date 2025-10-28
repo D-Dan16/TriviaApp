@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -26,7 +25,7 @@ import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.Helpers.User;
 import stav_gordeev.triviaapp.R;
 
-public class Leaderboard extends AppCompatActivity {
+public class Leaderboard extends BaseActivity {
     TextView tvRankName1, tvRankName2, tvRankName3, tvRankName4, tvRankName5;
 
     TextView tvScore1, tvScore2, tvScore3, tvScore4, tvScore5;
@@ -112,5 +111,5 @@ public class Leaderboard extends AppCompatActivity {
 
 
         });
-    };
+    }
 }

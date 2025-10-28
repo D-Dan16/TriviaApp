@@ -3,6 +3,7 @@ package stav_gordeev.triviaapp.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import stav_gordeev.triviaapp.Constants;
 import stav_gordeev.triviaapp.Helpers.Question;
 import stav_gordeev.triviaapp.Helpers.User;
 
@@ -13,7 +14,7 @@ public class GameGlobalsSingleton {
 
     private GameGlobalsSingleton(){
         questionList= new ArrayList<>();
-        levelsInGame = 5;
+        levelsInGame = Constants.numOfQuestions;
     }
 
     private static class SingletonHelper{

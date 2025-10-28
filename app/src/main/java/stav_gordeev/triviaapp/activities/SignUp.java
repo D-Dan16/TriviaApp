@@ -159,6 +159,8 @@ public class SignUp extends BaseActivity {
                 return;
             }
 
+            GameGlobalsSingleton.getInstance().setCurrentUser(currentUser);
+
             Intent toGame = new Intent(this, Game.class);
             startActivity(toGame);
         }).addOnFailureListener(e -> {

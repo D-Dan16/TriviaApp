@@ -25,5 +25,11 @@
         android:title="Leaderboard"
         tools:ignore="HardcodedText" />
 
+    <item
+        android:id="@+id/mnuMainActivity"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Main Activity"
+        tools:ignore="HardcodedText" />
+
 </menu>
    

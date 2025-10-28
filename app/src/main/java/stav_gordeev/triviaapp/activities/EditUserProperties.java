@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -31,7 +32,7 @@ import java.util.Map;
 public class EditUserProperties extends BaseActivity {
 
     private EditText usernameEditText, emailEditText;
-    private Button saveButton;
+    private FloatingActionButton saveButton;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;

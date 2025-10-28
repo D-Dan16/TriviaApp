@@ -260,7 +260,8 @@ public class MainActivity extends BaseActivity {
                     Log.d(TAG, "User retrieved successfully with uid " + uid);
                     // sets the User object in the GameGlobals available to all Activities
                     GameGlobalsSingleton.getInstance().setCurrentUser(currentUser);
-                    // Starts next activity (= fetch questions)
+
+
                     Intent goToGame = new Intent(context, Game.class);
                     startActivity(goToGame);
                 }

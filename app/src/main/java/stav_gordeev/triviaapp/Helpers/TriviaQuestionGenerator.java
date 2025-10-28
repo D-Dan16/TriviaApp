@@ -23,6 +23,9 @@ public class TriviaQuestionGenerator {
     private static final String TAG = "TriviaQuestionGenerator";
 
     public static void createQuestionListInBackground(Context context) {
+        //TODO: in order to not spam the AI. temp
+//        if (true) return;
+
         Thread backgroundThread = new Thread(() -> {
             try {
                 GenerativeModelFutures model = GenerativeModelFutures.from(new GenerativeModel(

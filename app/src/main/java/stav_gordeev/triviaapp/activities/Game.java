@@ -8,7 +8,9 @@ import android.os.Bundle;
 
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -140,9 +142,9 @@ public class Game extends BaseActivity {
                 // check if correct
                 if (selectedAnswer == correctAnswer) {
                     correctAnswersCounter++;
-                    flicker(ivCorrect);
+                    showIfCorrect(ivCorrect);
                 } else
-                    flicker(ivWrong);
+                    showIfCorrect(ivWrong);
 
                 currentQuestionIndex++;
                 loadNextQuestion();
@@ -151,8 +153,15 @@ public class Game extends BaseActivity {
         });
     }
 
-    private void flicker(ImageView iv) {
-        iv.animate().alpha(1).setDuration(500).withEndAction(() -> iv.animate().alpha(0).setDuration(500).start());
+    private void showIfCorrect(ImageView iv) {
+        iv.setVisibility(View.VISIBLE);
+        iv.setScaleX(2);
+        iv.setScaleY(2);
+        new Handler().postDelayed(() -> {
+            iv.setVisibility(View.INVISIBLE);
+            iv.setScaleX(1);
+            iv.setScaleY(1);
+        }, 1000);
     }
 
     /**
@@ -173,6 +182,12 @@ public class Game extends BaseActivity {
             return 3;
         else
             return -1;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        curTimerCountdown.cancel();
     }
 
     /**

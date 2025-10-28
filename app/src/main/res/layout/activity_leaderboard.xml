@@ -37,6 +37,7 @@
                     android:layout_height="wrap_content"
                     app:columnCount="2"
                     app:rowCount="5"
+                    android:layoutDirection="ltr"
                     android:layout_marginTop="16dp">
 
                 <!-- Rank 1 -->
@@ -48,7 +49,7 @@
                         app:layout_gravity="fill_horizontal"
                         android:textColor="@android:color/darker_gray"
                         android:text="1. User One"
-                        android:textSize="18sp"
+                        android:textSize="26sp"
                         android:padding="8dp" />
 
                 <TextView
@@ -56,9 +57,9 @@
                         app:layout_column="1"
                         app:layout_row="0"
                         app:layout_gravity="end"
-                        android:text="1000"
-                        android:textSize="18sp"
-                        android:padding="8dp"/>
+                        android:text="No data"
+                        android:textSize="26sp"
+                        android:padding="8dp" />
 
                 <!-- Rank 2 -->
                 <TextView
@@ -69,17 +70,17 @@
                         app:layout_gravity="fill_horizontal"
                         android:textColor="@android:color/darker_gray"
                         android:text="2. User Two"
-                        android:textSize="18sp"
-                        android:padding="8dp"/>
+                        android:textSize="26sp"
+                        android:padding="8dp" />
 
                 <TextView
                         android:id="@+id/tvScore2"
                         app:layout_column="1"
                         app:layout_row="1"
                         app:layout_gravity="end"
-                        android:text="950"
-                        android:textSize="18sp"
-                        android:padding="8dp"/>
+                        android:text="No data"
+                        android:textSize="26sp"
+                        android:padding="8dp" />
 
                 <!-- Rank 3 -->
                 <TextView
@@ -90,17 +91,17 @@
                         app:layout_gravity="fill_horizontal"
                         android:textColor="@android:color/darker_gray"
                         android:text="3. User Three"
-                        android:textSize="18sp"
-                        android:padding="8dp"/>
+                        android:textSize="26sp"
+                        android:padding="8dp" />
 
                 <TextView
                         android:id="@+id/tvScore3"
                         app:layout_column="1"
                         app:layout_row="2"
                         app:layout_gravity="end"
-                        android:text="900"
-                        android:textSize="18sp"
-                        android:padding="8dp"/>
+                        android:text="No data"
+                        android:textSize="26sp"
+                        android:padding="8dp" />
 
                 <!-- Rank 4 -->
                 <TextView
@@ -111,17 +112,17 @@
                         app:layout_gravity="fill_horizontal"
                         android:textColor="@android:color/darker_gray"
                         android:text="4. User Four"
-                        android:textSize="18sp"
-                        android:padding="8dp"/>
+                        android:textSize="26sp"
+                        android:padding="8dp" />
 
                 <TextView
                         android:id="@+id/tvScore4"
                         app:layout_column="1"
                         app:layout_row="3"
                         app:layout_gravity="end"
-                        android:text="850"
-                        android:textSize="18sp"
-                        android:padding="8dp"/>
+                        android:text="No data"
+                        android:textSize="26sp"
+                        android:padding="8dp" />
 
                 <!-- Rank 5 -->
                 <TextView
@@ -132,17 +133,17 @@
                         app:layout_gravity="fill_horizontal"
                         android:textColor="@android:color/darker_gray"
                         android:text="5. User Five"
-                        android:textSize="18sp"
-                        android:padding="8dp"/>
+                        android:textSize="26sp"
+                        android:padding="8dp" />
 
                 <TextView
                         android:id="@+id/tvScore5"
                         app:layout_column="1"
                         app:layout_row="4"
                         app:layout_gravity="end"
-                        android:text="800"
-                        android:textSize="18sp"
-                        android:padding="8dp"/>
+                        android:text="No data"
+                        android:textSize="26sp"
+                        android:padding="8dp" />
 
             </androidx.gridlayout.widget.GridLayout>
         </LinearLayout>

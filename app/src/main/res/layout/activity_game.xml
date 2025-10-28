@@ -129,29 +129,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/ivCorrect"
+            <Button
+                    android:id="@+id/bSubmit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/outline_check_24" />
-
-                <ImageView
-                    android:id="@+id/ivWrong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/outline_close_24" />
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Submit"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tvQuestion"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/tvQuestion"
+                    app:layout_constraintTop_toBottomOf="@+id/tvQuestion"
+                    app:layout_constraintVertical_bias="0.865" />
 
             <Space
                 android:layout_width="match_parent"
@@ -170,23 +160,27 @@
                 android:gravity="center"
                 android:text="1/10" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/bSubmit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Submit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tvQuestion"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/tvQuestion"
-                app:layout_constraintTop_toBottomOf="@+id/tvQuestion"
-                app:layout_constraintVertical_bias="0.865" />
+                <ImageView
+                        android:id="@+id/ivCorrect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/outline_check_24"
+                        android:visibility="invisible" />
+
+                <ImageView
+                        android:id="@+id/ivWrong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/outline_close_24"
+                        android:visibility="invisible" />
+            </LinearLayout>
 
 
         </LinearLayout>

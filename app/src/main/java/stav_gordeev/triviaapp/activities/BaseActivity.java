@@ -1,16 +1,15 @@
 package stav_gordeev.triviaapp.activities;
 
-import static androidx.core.content.ContextCompat.startActivity;
 import static stav_gordeev.triviaapp.R.*;
 
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import java.util.List;
 
 import stav_gordeev.triviaapp.R;
 
@@ -56,19 +55,35 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-
+        var isLoggedIn = GameGlobalsSingleton.getInstance().getCurrentUser() != null;
 
         if (itemId == id.mnuUserProperties) {
-            startActivity(new Intent(this, EditUserProperties.class));
+            if (!isLoggedIn) {
+                Toast.makeText(this, "You must be logged in to view your properties.", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(this, EditUserProperties.class));
+            }
+
             return true;
         } else if (itemId == id.mnuToGame) {
-            startActivity(new Intent(this, Game.class));
+            if (!isLoggedIn) {
+                Toast.makeText(this, "You must be logged in to Play.", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(this, Game.class));
+            }
+            return true;
+        } else if (itemId == id.mnuDeleteUser) {
+            if (!isLoggedIn) {
+                Toast.makeText(this, "You must be logged in to delete you as a user.", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(this, DeleteUser.class));
+            }
             return true;
         } else if (itemId == id.mnuLeaderboard) {
             startActivity(new Intent(this, Leaderboard.class));
             return true;
-        } else if (itemId == id.mnuDeleteUser) {
-            startActivity(new Intent(this, DeleteUser.class));
+        } else if (itemId == id.mnuMainActivity) {
+            startActivity(new Intent(this, MainActivity.class));
             return true;
         }
 
