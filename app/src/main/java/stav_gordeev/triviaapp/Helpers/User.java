@@ -1,4 +1,11 @@
 package stav_gordeev.triviaapp.Helpers;
+
+
+/**
+ * Represents a user of the trivia application.
+ * This class stores user-specific data such as their unique ID, username,
+ * game statistics, and permission level.
+ */
 public class User {
     private String uid;
     private String userName;

@@ -12,6 +12,15 @@ import java.util.Objects;
 
 import stav_gordeev.triviaapp.R;
 
+
+/**
+ * A background service for playing, pausing, and stopping background music for the application.
+ * <p>
+ * This service manages a {@link MediaPlayer} instance to handle the playback of a predefined
+ * music track. It can be controlled via {@link Intent} actions: "PLAY", "PAUSE", and "STOP".
+ * When playing, it also displays a persistent notification with playback controls.
+ * The service is designed to be a started service and does not support binding.
+ */
 public class MusicService extends Service {
     private MediaPlayer mediaPlayer;
 

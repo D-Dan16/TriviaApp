@@ -7,6 +7,13 @@ import stav_gordeev.triviaapp.Constants;
 import stav_gordeev.triviaapp.Helpers.Question;
 import stav_gordeev.triviaapp.Helpers.User;
 
+/**
+ * A Singleton class to hold global game data that needs to be accessible across different activities.
+ * This includes the current user's data, the list of trivia questions for the current game,
+ * and the total number of levels (questions) in a game session.
+ * The Singleton pattern ensures that only one instance of this class exists throughout the application's lifecycle,
+ * providing a centralized point of access to shared game state.
+ */
 public class GameGlobalsSingleton {
     private List<Question> questionList;
     private final int levelsInGame;

@@ -16,15 +16,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import kotlin.jvm.internal.markers.KMutableList;
 import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.Helpers.User;
 import stav_gordeev.triviaapp.R;
 
+/**
+ * The Leaderboard activity is responsible for displaying the top 5 players
+ * based on their highest scores. It fetches user data from the Firebase Realtime Database,
+ * sorts the users, and updates the UI to show the rankings.
+ */
 public class Leaderboard extends BaseActivity {
     TextView tvRankName1, tvRankName2, tvRankName3, tvRankName4, tvRankName5;
 

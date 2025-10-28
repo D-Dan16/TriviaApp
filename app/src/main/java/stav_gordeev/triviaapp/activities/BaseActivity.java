@@ -52,6 +52,16 @@ public class BaseActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Handles the selection of an item from the options menu.
+     * This method is called whenever an item in your options menu is selected.
+     * It checks the ID of the selected item and performs the appropriate action,
+     * such as navigating to a different activity (e.g., User Properties, Game, Leaderboard)
+     * or displaying a message if the user is not logged in.
+     *
+     * @param item The menu item that was selected. This object contains the item's ID.
+     * @return boolean Return false to allow normal menu processing to proceed, true to consume it here.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
@@ -88,10 +98,5 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
     }
 }
