@@ -7,263 +7,285 @@
         android:layout_height="match_parent"
         tools:context=".activities.SignUp">
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/HeaderTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="25dp">
-
-            <TextView
-                    android:text="Register User"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView5"
-                    style="@style/HeaderTextStyle"
-                    tools:ignore="HardcodedText" />
+                android:text="Register User"
+                tools:ignore="HardcodedText" />
 
             <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <LinearLayout
+                android:id="@+id/userQuestions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    style="@style/SecondaryHeaderTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    tools:ignore="HardcodedText" />
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:id="@+id/tilUserName"
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+
+                    android:hint=""
+
+                    app:counterEnabled="true"
+
+                    app:counterMaxLength="30"
+
+                    app:endIconMode="clear_text"
+
+                    app:helperText="*Required"
+
+                    app:helperTextTextColor="#F00726"
+                    app:startIconDrawable="@drawable/baseline_person_24">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+                        android:id="@+id/etNameReg"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Space
                     android:layout_width="match_parent"
                     android:layout_height="30dp" />
 
-            <LinearLayout
-                    android:orientation="vertical"
+                <TextView
+                    android:id="@+id/tvPassword"
+                    style="@style/SecondaryHeaderTextStyle"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Password"
+                    tools:ignore="HardcodedText" />
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:id="@+id/tilPassword"
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                    android:layout_width="match_parent"
+
                     android:layout_height="match_parent"
-                    android:id="@+id/userQuestions"
-                    android:gravity="center_horizontal">
 
-                <TextView
-                        android:text="Name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvName"
-                        style="@style/SecondaryHeaderTextStyle"
-                        tools:ignore="HardcodedText" />
+                    android:hint=""
 
-                <com.google.android.material.textfield.TextInputLayout
+                    app:counterEnabled="true"
 
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:counterMaxLength="30"
 
-                        android:layout_width="match_parent"
+                    app:endIconMode="clear_text"
 
-                        android:layout_height="wrap_content"
+                    app:helperText="*Required"
 
-                        app:counterEnabled="true"
-
-                        app:counterMaxLength="30"
-
-                        android:hint=""
-
-                        app:helperText="*Required"
-
-                        app:helperTextTextColor="#F00726"
-
-                        app:startIconDrawable="@drawable/baseline_person_24"
-
-                        app:endIconMode="clear_text"
-                        android:id="@+id/tilUserName">
+                    app:helperTextTextColor="#F00726"
+                    app:startIconDrawable="@drawable/baseline_person_24">
 
                     <com.google.android.material.textfield.TextInputEditText
 
-                            android:id="@+id/etNameReg"
+                        android:id="@+id/etPassword"
 
-                            android:layout_width="match_parent"
+                        android:layout_width="match_parent"
 
-                            android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
 
                 <TextView
-                        android:text="Password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvPassword"
-                        style="@style/SecondaryHeaderTextStyle"
-                        tools:ignore="HardcodedText" />
+                    android:id="@+id/tvPhoneNumber"
+                    style="@style/SecondaryHeaderTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number"
+                    tools:ignore="HardcodedText" />
 
                 <com.google.android.material.textfield.TextInputLayout
 
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/tilPhoneNumber"
 
-                        android:layout_width="match_parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-                        android:layout_height="match_parent"
+                    android:layout_width="match_parent"
 
-                        app:counterEnabled="true"
+                    android:layout_height="match_parent"
 
-                        app:counterMaxLength="30"
+                    android:hint=""
 
-                        android:hint=""
+                    app:counterEnabled="true"
 
-                        app:helperText="*Required"
+                    app:counterMaxLength="30"
 
-                        app:helperTextTextColor="#F00726"
+                    app:endIconMode="clear_text"
 
-                        app:startIconDrawable="@drawable/baseline_person_24"
+                    app:helperText="*Required"
 
-                        app:endIconMode="clear_text"
-                        android:id="@+id/tilPassword">
+                    app:helperTextTextColor="#F00726"
+                    app:startIconDrawable="@drawable/baseline_person_24">
 
                     <com.google.android.material.textfield.TextInputEditText
 
-                            android:id="@+id/etPassword"
+                        android:id="@+id/etPhone"
 
-                            android:layout_width="match_parent"
+                        android:layout_width="match_parent"
 
-                            android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
 
                 <TextView
-                        android:text="Phone Number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvPhoneNumber"
-                        style="@style/SecondaryHeaderTextStyle"
-                        tools:ignore="HardcodedText" />
+                    android:id="@+id/tvEmail"
+                    style="@style/SecondaryHeaderTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    tools:ignore="HardcodedText" />
 
                 <com.google.android.material.textfield.TextInputLayout
 
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/tilEmail"
 
-                        android:layout_width="match_parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-                        android:layout_height="match_parent"
+                    android:layout_width="match_parent"
 
-                        app:counterEnabled="true"
+                    android:layout_height="match_parent"
 
-                        app:counterMaxLength="30"
+                    android:hint=""
 
-                        android:hint=""
+                    app:counterEnabled="true"
 
-                        app:helperText="*Required"
+                    app:counterMaxLength="30"
 
-                        app:helperTextTextColor="#F00726"
+                    app:endIconMode="clear_text"
 
-                        app:startIconDrawable="@drawable/baseline_person_24"
+                    app:helperText="*Required"
 
-                        app:endIconMode="clear_text"
-                        android:id="@+id/tilPhoneNumber">
-
-                    <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/etPhone"
-
-                            android:layout_width="match_parent"
-
-                            android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp" />
-
-                <TextView
-                        android:text="Email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvEmail"
-                        style="@style/SecondaryHeaderTextStyle"
-                        tools:ignore="HardcodedText" />
-
-                <com.google.android.material.textfield.TextInputLayout
-
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-                        android:layout_width="match_parent"
-
-                        android:layout_height="match_parent"
-
-                        app:counterEnabled="true"
-
-                        app:counterMaxLength="30"
-
-                        android:hint=""
-
-                        app:helperText="*Required"
-
-                        app:helperTextTextColor="#F00726"
-
-                        app:startIconDrawable="@drawable/baseline_person_24"
-
-                        app:endIconMode="clear_text"
-                        android:id="@+id/tilEmail">
+                    app:helperTextTextColor="#F00726"
+                    app:startIconDrawable="@drawable/baseline_person_24">
 
                     <com.google.android.material.textfield.TextInputEditText
 
-                            android:id="@+id/etEmailReg"
+                        android:id="@+id/etEmailReg"
 
-                            android:layout_width="match_parent"
+                        android:layout_width="match_parent"
 
-                            android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
             <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp" />
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
             <TextView
-                    android:text="Save?"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView6"
-                    style="@style/HeaderTextStyle"
-                    tools:ignore="HardcodedText" />
+                android:id="@+id/textView6"
+                style="@style/HeaderTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save?"
+                tools:ignore="HardcodedText" />
 
             <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/buttons"
-                    android:gravity="center_horizontal">
+                android:id="@+id/buttons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@drawable/outline_check_24"
-                        android:id="@+id/fabOkReg"
-                        android:layout_weight="1"
-                        tools:ignore="ContentDescription" />
+                    android:id="@+id/fabOkReg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/outline_check_24"
+                    tools:ignore="ContentDescription" />
 
                 <Space
-                        android:layout_width="15dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        app:srcCompat="@drawable/outline_close_24"
-                        android:id="@+id/fabCancelReg"
-                        android:layout_weight="1"
-                        tools:ignore="ContentDescription" />
+                    android:id="@+id/fabCancelReg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/outline_close_24"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
         </LinearLayout>
     </ScrollView>

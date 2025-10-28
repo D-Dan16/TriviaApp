@@ -57,7 +57,7 @@ public class GameOver extends BaseActivity {
         bToMainMenu = findViewById(R.id.bToMainMenu);
 
         Intent intent=getIntent();
-        int points = intent.getIntExtra("points",0);
+        int points = intent.getIntExtra("correctAnswersCounter",0);
         
         tvPointsGO.setText(points +"/"+GameGlobalsSingleton.getInstance().getQuestionList().size());
 

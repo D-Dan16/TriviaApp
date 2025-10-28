@@ -6,7 +6,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -47,7 +46,7 @@ import stav_gordeev.triviaapp.Helpers.User;
  *
  * The questions for the game are retrieved from the {@link GameGlobalsSingleton}.
  */
-public class Game extends AppCompatActivity {
+public class Game extends BaseActivity {
 
     private static final String TAG = "GameActivity"; // For logging
 

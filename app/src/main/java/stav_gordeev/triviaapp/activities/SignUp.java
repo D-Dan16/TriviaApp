@@ -6,10 +6,6 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -34,7 +30,7 @@ import stav_gordeev.triviaapp.Helpers.User;
  * Upon successful authentication, it also stores the user's information in the Firebase Realtime Database.
  * After a successful registration, the activity navigates the user to the main game screen.
  */
-public class SignUp extends AppCompatActivity {
+public class SignUp extends BaseActivity {
     // debug TAG
     private static final String TAG = "SignUp";
     // view objects

@@ -1,5 +1,8 @@
 package stav_gordeev.triviaapp.activities;
 
+import static stav_gordeev.triviaapp.R.*;
+
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -53,13 +56,27 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
 
-        if (List.of(
-            R.id.mnuSettings,
-            R.id.mnuUserProperties,
-            R.id.mnuInstructions,
-            R.id.mnuAbout,
-            R.id.mnuMusic
-        ).contains(itemId)) return true;
-        else return super.onOptionsItemSelected(item);
+
+        switch (itemId) {
+            case R.id.mnuUserProperties:
+                startActivity(new Intent(this, EditUserProperties.class));
+                return true;
+            case R.id.mnuToGame:
+                startActivity(new Intent(this, Game.class));
+                return true;
+            case R.id.mnuLeaderboard:
+                startActivity(new Intent(this, Leaderboard.class));
+                return true;
+            case R.id.mnuDeleteUser:
+                startActivity(new Intent(this, DeleteUser.class));
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
     }
 }

@@ -7,40 +7,50 @@
     android:layout_height="match_parent"
     tools:context=".activities.GameOver">
 
+
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/HeaderTextStyle"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@android:color/white" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trivia App" />
+            android:orientation="vertical"
+            android:padding="25dp">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            <TextView
+                style="@style/HeaderTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trivia App" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
-        <TextView
-            android:id="@+id/tvUserScore"
-            style="@style/SecondaryHeaderTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="User"
-            android:textStyle="normal"
-            tools:ignore="HardcodedText" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
-        <TextView
+            <TextView
+                android:id="@+id/tvUserScore"
+                style="@style/SecondaryHeaderTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="User"
+                android:textStyle="normal"
+                tools:ignore="HardcodedText" />
+
+            <TextView
                 android:id="@+id/tvPointsGO"
                 style="@style/SecondaryHeaderTextStyle"
                 android:layout_width="match_parent"
@@ -50,47 +60,49 @@
                 android:textStyle="normal"
                 tools:ignore="HardcodedText" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
-        <LinearLayout
-                android:orientation="horizontal"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <Button
-                    android:text="Retry?"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Button
                     android:id="@+id/bRetry"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_margin="20dp" />
-
-            <Button
-                    android:text="To Main Menu?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/bToMainMenu"
-                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:layout_margin="20dp" />
+                    android:layout_margin="20dp"
+                    android:gravity="center"
+                    android:text="Retry?" />
+
+                <Button
+                    android:id="@+id/bToMainMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:gravity="center"
+                    android:text="To Main Menu?" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:id="@+id/tvAllScores"
+                style="@style/SecondaryHeaderTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="normal"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
-        <TextView
-            android:id="@+id/tvAllScores"
-            style="@style/SecondaryHeaderTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textStyle="normal"
-            tools:ignore="HardcodedText" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
