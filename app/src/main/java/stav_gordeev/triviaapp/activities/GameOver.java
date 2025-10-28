@@ -1,8 +1,8 @@
 package stav_gordeev.triviaapp.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +34,7 @@ public class GameOver extends BaseActivity {
     private Button bRetry;
     private Button bToMainMenu;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +59,7 @@ public class GameOver extends BaseActivity {
         Intent intent=getIntent();
         int points = intent.getIntExtra("points",0);
         
-        tvPointsGO.setText(Integer.toString(points));
+        tvPointsGO.setText(points +"/"+GameGlobalsSingleton.getInstance().getQuestionList().size());
 
 
         // Start loading in a new set of questions for the player to play!
