@@ -1,5 +1,6 @@
 package stav_gordeev.triviaapp.activities;
 
+import static androidx.core.content.ContextCompat.startActivity;
 import static stav_gordeev.triviaapp.R.*;
 
 import android.content.Intent;
@@ -57,19 +58,18 @@ public class BaseActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
 
-        switch (itemId) {
-            case R.id.mnuUserProperties:
-                startActivity(new Intent(this, EditUserProperties.class));
-                return true;
-            case R.id.mnuToGame:
-                startActivity(new Intent(this, Game.class));
-                return true;
-            case R.id.mnuLeaderboard:
-                startActivity(new Intent(this, Leaderboard.class));
-                return true;
-            case R.id.mnuDeleteUser:
-                startActivity(new Intent(this, DeleteUser.class));
-                return true;
+        if (itemId == id.mnuUserProperties) {
+            startActivity(new Intent(this, EditUserProperties.class));
+            return true;
+        } else if (itemId == id.mnuToGame) {
+            startActivity(new Intent(this, Game.class));
+            return true;
+        } else if (itemId == id.mnuLeaderboard) {
+            startActivity(new Intent(this, Leaderboard.class));
+            return true;
+        } else if (itemId == id.mnuDeleteUser) {
+            startActivity(new Intent(this, DeleteUser.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

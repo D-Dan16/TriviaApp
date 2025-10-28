@@ -6,5 +6,6 @@
     <string name="register_instead">Register Instead</string>
     <string name="API_KEY">AIzaSyAwlkFWbGykDCNs3vk6wI4Uurp25RQF9bA</string>
     <string name="oops_no_questions_found">OOPS.. No Questions found!</string>
-    <string name="gemini_prompt">Generate 5 random general-knowledge trivia questions. The output must be a single JSON object with a key named trivia_questions. The value of trivia_questions must be a JSON array. Each element of the array must be a JSON object representing a question, containing exactly four keys: question, correct_answer, wrong_answer_1, wrong_answer_2, and wrong_answer_3. STRICTLY DO NOT include any text, explanation, introductory/concluding words, or markdown formatting (like ```json) outside of the single JSON object.</string>
+    <string name="gemini_prompt">Generate random general-knowledge trivia questions. The output must be a single JSON object with a key named trivia_questions. The value of trivia_questions must be a JSON array. Each element of the array must be a JSON object representing a question, containing exactly four keys: question, correct_answer, wrong_answer_1, wrong_answer_2, and wrong_answer_3. STRICTLY DO NOT include any text, explanation, introductory/concluding words, or markdown formatting (like ```json) outside of the single JSON object.</string>
+    <string name="title_activity_leaderboard">Leaderboard</string>
 </resources>

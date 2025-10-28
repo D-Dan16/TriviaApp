@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import stav_gordeev.triviaapp.Constants;
 import stav_gordeev.triviaapp.R;
 import stav_gordeev.triviaapp.activities.GameGlobalsSingleton;
 
@@ -30,7 +31,7 @@ public class TriviaQuestionGenerator {
                 ));
 
                 Content prompt = new Content.Builder()
-                        .addText(context.getString(R.string.gemini_prompt))
+                        .addText(Constants.geminiPrompt)
                         .build();
 
                 ListenableFuture<GenerateContentResponse> futureResponse = model.generateContent(prompt);
