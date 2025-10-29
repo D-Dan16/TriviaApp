@@ -7,6 +7,8 @@ import com.google.ai.client.generativeai.java.GenerativeModelFutures;
 import com.google.ai.client.generativeai.type.Content;
 import com.google.ai.client.generativeai.type.GenerateContentResponse;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,6 +23,7 @@ import stav_gordeev.triviaapp.activities.GameGlobalsSingleton;
 public class TriviaQuestionGenerator {
 
     private static final String TAG = "TriviaQuestionGenerator";
+    private static DatabaseReference questionsDBRef;
 
     public static void createQuestionListInBackground(Context context) {
         Thread backgroundThread = new Thread(() -> {
@@ -40,7 +43,7 @@ public class TriviaQuestionGenerator {
 
                 JSONArray arr = new JSONObject(output).getJSONArray("trivia_questions");
 
-                List<Question> questionList = new ArrayList<>();
+                questionsDBRef = FirebaseDatabase.getInstance().getReference("Questions");
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
@@ -52,10 +55,11 @@ public class TriviaQuestionGenerator {
                             obj.getString("wrong_answer_2"),
                             obj.getString("wrong_answer_3")
                     );
-                    questionList.add(q);
+                    DatabaseReference questionNode = questionsDBRef.child("question_"+(i+1));
+                    questionNode.setValue(q);
                 }
 
-                GameGlobalsSingleton.getInstance().setQuestionList(questionList);
+                GameGlobalsSingleton.getInstance().hasQuestions = true;
 
             } catch (Exception e) {
                 Log.e(TAG, "Error creating question list", e);
