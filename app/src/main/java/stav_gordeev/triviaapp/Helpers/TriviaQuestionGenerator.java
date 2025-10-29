@@ -16,7 +16,6 @@ import java.util.List;
 
 import stav_gordeev.triviaapp.Constants;
 import stav_gordeev.triviaapp.R;
-import stav_gordeev.triviaapp.activities.GameGlobalsSingleton;
 
 public class TriviaQuestionGenerator {
 

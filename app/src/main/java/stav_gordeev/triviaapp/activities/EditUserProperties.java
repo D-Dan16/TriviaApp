@@ -13,7 +13,6 @@ import stav_gordeev.triviaapp.R;
 
 
 import android.text.TextUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -36,6 +35,7 @@ public class EditUserProperties extends BaseActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private FloatingActionButton bCancelEditProperty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +72,7 @@ public class EditUserProperties extends BaseActivity {
      * Initializes the UI elements from the layout file.
      */
     private void initializeViews() {
+        bCancelEditProperty = findViewById(R.id.fabCancelEditProperty);
         usernameEditText = findViewById(R.id.etNameEditProperty);
         emailEditText = findViewById(R.id.etEmailEditProperty);
         saveButton = findViewById(R.id.fabOkEditProperty);
@@ -108,6 +109,8 @@ public class EditUserProperties extends BaseActivity {
 
             updateFirebaseAuthentication(user, newUsername, newEmail);
         });
+
+        bCancelEditProperty.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
     }
 
     /**

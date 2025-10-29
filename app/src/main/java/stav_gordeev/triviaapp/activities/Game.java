@@ -27,6 +27,7 @@ import java.util.Random;
 import java.util.Collections;
 
 import stav_gordeev.triviaapp.Constants;
+import stav_gordeev.triviaapp.Helpers.GameGlobalsSingleton;
 import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.Helpers.Question;
 import stav_gordeev.triviaapp.R;

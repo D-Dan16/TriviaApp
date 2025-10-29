@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import stav_gordeev.triviaapp.Helpers.GameGlobalsSingleton;
 import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.Helpers.TriviaQuestionGenerator;
 import stav_gordeev.triviaapp.R;
@@ -59,7 +60,7 @@ public class GameOver extends BaseActivity {
         Intent intent=getIntent();
         int points = intent.getIntExtra("correctAnswersCounter",0);
         
-        tvPointsGO.setText(points +"/"+GameGlobalsSingleton.getInstance().getQuestionList().size());
+        tvPointsGO.setText(points +"/"+ GameGlobalsSingleton.getInstance().getQuestionList().size());
 
 
         // Start loading in a new set of questions for the player to play!

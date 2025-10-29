@@ -1,11 +1,9 @@
-package stav_gordeev.triviaapp.activities;
+package stav_gordeev.triviaapp.Helpers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import stav_gordeev.triviaapp.Constants;
-import stav_gordeev.triviaapp.Helpers.Question;
-import stav_gordeev.triviaapp.Helpers.User;
 
 /**
  * A Singleton class to hold global game data that needs to be accessible across different activities.

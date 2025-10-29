@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import stav_gordeev.triviaapp.Helpers.GameGlobalsSingleton;
 import stav_gordeev.triviaapp.R;
 
 /**

@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
+import stav_gordeev.triviaapp.Helpers.GameGlobalsSingleton;
 import stav_gordeev.triviaapp.Helpers.User;
 import stav_gordeev.triviaapp.R;
 

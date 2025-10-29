@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
+import stav_gordeev.triviaapp.Helpers.GameGlobalsSingleton;
 import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.R;
 import stav_gordeev.triviaapp.Helpers.User;
