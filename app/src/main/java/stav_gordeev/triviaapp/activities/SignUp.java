@@ -152,16 +152,11 @@ public class SignUp extends BaseActivity {
         userNode.setValue(currentUser).addOnCompleteListener(aVoid -> {
             // if successfully
             Log.d(TAG, "User created successfully with uid " + uid);
-            Toast.makeText(SignUp.this, "User created successfully.", Toast.LENGTH_SHORT).show();
-
-            if (GameGlobalsSingleton.getInstance().getQuestionList().isEmpty()) {
-                Toast.makeText(this, "Wait a little more until the questions are ready to be presented ", Toast.LENGTH_LONG).show();
-                return;
-            }
+            Toast.makeText(SignUp.this, "User created successfully. To play, open the menu", Toast.LENGTH_SHORT).show();
 
             GameGlobalsSingleton.getInstance().setCurrentUser(currentUser);
 
-            Intent toGame = new Intent(this, Game.class);
+            Intent toGame = new Intent(this, MainActivity.class);
             startActivity(toGame);
         }).addOnFailureListener(e -> {
             // if failed

@@ -78,9 +78,12 @@ public class BaseActivity extends AppCompatActivity {
         } else if (itemId == id.mnuToGame) {
             if (!isLoggedIn) {
                 Toast.makeText(this, "You must be logged in to Play.", Toast.LENGTH_SHORT).show();
+            } else if (GameGlobalsSingleton.getInstance().getQuestionList().isEmpty()) {
+                Toast.makeText(this, "Wait a little more until the questions are ready to be presented ", Toast.LENGTH_LONG).show();
             } else {
                 startActivity(new Intent(this, Game.class));
             }
+
             return true;
         } else if (itemId == id.mnuDeleteUser) {
             if (!isLoggedIn) {

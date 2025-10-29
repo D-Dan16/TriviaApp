@@ -132,6 +132,12 @@ public class MainActivity extends BaseActivity {
 
     private void signUpButtonLogic() {
         bSignUp.setOnClickListener(v -> {
+            // If the user is already logged, don't let them try to register once more.
+            if (GameGlobalsSingleton.getInstance().getCurrentUser() != null) {
+                Toast.makeText(context, "You are already logged in.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Intent goToSignUp = new Intent(context, SignUp.class);
             startActivity(goToSignUp);
         });
@@ -155,13 +161,6 @@ public class MainActivity extends BaseActivity {
                 tilPasswordIn.setError("Password Required");
                 return;
             }
-
-            if (GameGlobalsSingleton.getInstance().getQuestionList().isEmpty()) {
-                Toast.makeText(MainActivity.this, "Wait a little more until the questions are ready to be presented ", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            Toast.makeText(MainActivity.this, "Signing In", Toast.LENGTH_SHORT).show();
 
             // this is firebase method to sign in user with email and password
             // it is asynchronic so we need a callback
@@ -239,20 +238,15 @@ public class MainActivity extends BaseActivity {
             editor.apply();
         }
 
+        Toast.makeText(MainActivity.this, "Signing In, Click on menu to play", Toast.LENGTH_SHORT).show();
 
         // Sign in success, log it, and get the specific uid
         Log.d(TAG, "signInWithEmail:success");
         assert mAuth.getCurrentUser() != null;
         uid=mAuth.getCurrentUser().getUid();
 
-        // Now we want to retrieve the User Object from the Realtime Database
-        // and assign it in the GameGlobals Singleton
-        // to be accessed through the game
-        Toast.makeText(MainActivity.this, "Retrieving User Information", Toast.LENGTH_SHORT).show();
-        // this is ASynchronic, so we need a callback
-        // we put a single time listener on it
         usersDBRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override   // this is a callback method - when i get data from the database
+            @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // gets value from the database, and set it in the User object
                 currentUser = dataSnapshot.getValue(User.class);
@@ -260,10 +254,6 @@ public class MainActivity extends BaseActivity {
                     Log.d(TAG, "User retrieved successfully with uid " + uid);
                     // sets the User object in the GameGlobals available to all Activities
                     GameGlobalsSingleton.getInstance().setCurrentUser(currentUser);
-
-
-                    Intent goToGame = new Intent(context, Game.class);
-                    startActivity(goToGame);
                 }
                 else {
                     Log.e(TAG, "User objects returned NULL", task.getException());
