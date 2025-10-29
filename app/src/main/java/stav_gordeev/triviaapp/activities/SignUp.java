@@ -58,77 +58,71 @@ public class SignUp extends BaseActivity {
 
         init();
 
-
-        // when button pushed
-        fabRegister.setOnClickListener(view -> {
-            String email = Objects.requireNonNull(etEmail.getText()).toString();
-            String password = Objects.requireNonNull(etPassword.getText()).toString();
-            String userName = Objects.requireNonNull(etUserName.getText()).toString();
-
-
-            if(email.isEmpty()){
-                tilEmail.setError("Email Required");
-                return;
-            }
-            if(password.isEmpty()){
-                tilPassword.setError("Password Required");
-                return;
-            }
-            if(userName.isEmpty()){
-                tilUserName.setError("UserName Required");
-                return;
-            }
-            if(!isValidPassword(password)){
-                tilPassword.setError("Incorrect Password Format");
-                return;
-            }
-
-
-            Toast.makeText(SignUp.this, "Signing Up", Toast.LENGTH_SHORT).show();
-
-
-            // method from the firebase authentication library to create a new user with email / password
-            // it is asynchronic, so we need a callback
-            // we place a listener on it with a task object.
-            // we implement actions if the task is successful and if not
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser fbUser = mAuth.getCurrentUser();
-                            createUserAndNextActivity(Objects.requireNonNull(fbUser).getUid(), userName);
-                        }
-                        else {
-                            // check why it failed
-                            Exception e = task.getException();
-                            Log.w(TAG, "createUserWithEmail:failure", e);
-                            String errorMessage = Objects.requireNonNull(e).getMessage();
-                            if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                                // invalid credentials. which credential?
-                                Log.e(TAG, "Invalid Credentials: "+errorMessage);
-                                if(Objects.requireNonNull(errorMessage).contains("ERROR_INVALID_EMAIL"))
-                                    tilEmail.setError("Valid email address Please!");
-                            }
-                            else if (e instanceof FirebaseAuthUserCollisionException) {
-                                // user already exists
-                                Log.e(TAG, "User already exists: "+errorMessage);
-                                tilEmail.setError("This Email is already used!");
-                            }
-                            else {
-                                Log.e(TAG, "Unknown error: " + errorMessage);
-                                Toast.makeText(SignUp.this, "Unknown error: " + errorMessage, Toast.LENGTH_SHORT).show();
-                            }
-
-
-                        }
-                    }); // listener on the task
-
-
-        }); // listener on the button
+        SignupButtonLogic();
 
 
     }  // onCreate
+
+    private void SignupButtonLogic() {
+        fabRegister.setOnClickListener(view -> {
+            String email = Objects.requireNonNull(etEmail.getText()).toString().trim();
+            String password = Objects.requireNonNull(etPassword.getText()).toString();
+            String userName = Objects.requireNonNull(etUserName.getText()).toString().trim();
+
+            if (!validateInput(email, password, userName)) {
+                return;
+            }
+
+            Toast.makeText(SignUp.this, "Signing Up", Toast.LENGTH_SHORT).show();
+
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser fbUser = mAuth.getCurrentUser();
+                            createUserAndNextActivity(Objects.requireNonNull(fbUser).getUid(), userName);
+                        } else {
+                            Exception e = task.getException();
+                            Log.w(TAG, "createUserWithEmail:failure", e);
+                            if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                tilEmail.setError("Invalid email format.");
+                            } else if (e instanceof FirebaseAuthUserCollisionException) {
+                                tilEmail.setError("This email is already in use.");
+                            } else {
+                                Toast.makeText(SignUp.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        });
+    }
+
+    private boolean validateInput(String email, String password, String userName) {
+        boolean isValid = true;
+
+        tilEmail.setError(null);
+        tilPassword.setError(null);
+        tilUserName.setError(null);
+
+        if (email.isEmpty()) {
+            tilEmail.setError("Email is required.");
+            isValid = false;
+        }
+
+        if (password.isEmpty()) {
+            tilPassword.setError("Password is required.");
+            isValid = false;
+        } else if (!isValidPassword(password)) {
+            tilPassword.setError("Password must be at least 6 characters long and include a letter and a number.");
+            isValid = false;
+        }
+
+        if (userName.isEmpty()) {
+            tilUserName.setError("Username is required.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
 
 
     /**
@@ -176,7 +170,7 @@ public class SignUp extends BaseActivity {
      */
     private boolean isValidPassword(String password) {
         // Password must be at least 6 characters long and contain at least one letter and one digit
-        return password.matches(".*[A-Za-z].*") && password.matches(".*\\d.*") && password.length() >= 6;
+        return password.matches(".*[A-Za-z].*") && password.matches(".*\d.*") && password.length() >= 6;
     }
 
 
