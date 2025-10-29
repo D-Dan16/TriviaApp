@@ -52,8 +52,6 @@ public class Game extends BaseActivity {
 
     private static final String TAG = "GameActivity"; // For logging
 
-    private DatabaseReference questionsRef; // A reference to the root or a specific path
-
     // Using ArrayList to store the Question objects
     private List<Question> questionList; // Declare the list
     private List<Question> tempQuestionsHolder; // A temporary list to hold questions while fetching
