@@ -78,7 +78,7 @@ public class GameOver extends BaseActivity {
      */
     private void registerButtons() {
         bRetry.setOnClickListener(v->{
-            if (GameGlobalsSingleton.getInstance().getQuestionList().isEmpty()) {
+            if (GameGlobalsSingleton.getInstance().hasQuestions) {
                 Toast.makeText(this, "Wait a little more until the questions are ready to be presented ", Toast.LENGTH_LONG).show();
                 return;
             }
