@@ -104,6 +104,9 @@ public class MainActivity extends BaseActivity {
 
         addUserPreferencesDataToEditTexts();
 
+
+        setClickableLinks();
+
         createQuestionListInBackground(context);
 
         // Listener for the Sign In Button
@@ -141,7 +144,7 @@ public class MainActivity extends BaseActivity {
      * Upon successful authentication, it proceeds to the main game activity; otherwise, it logs the failure reason and displays an error message.
      */
     private void signInButtonLogic() {
-        bSignIn.setOnClickListener( v -> {
+        bSignIn.setOnClickListener(v -> {
             email = Objects.requireNonNull(etEmailReg.getText()).toString();
             password = Objects.requireNonNull(etPassword.getText()).toString();
             if (email.isEmpty()) {
@@ -153,7 +156,7 @@ public class MainActivity extends BaseActivity {
                 return;
             }
 
-            if (GameGlobalsSingleton.getInstance().hasQuestions) {
+            if (GameGlobalsSingleton.getInstance().getQuestionList().isEmpty()) {
                 Toast.makeText(MainActivity.this, "Wait a little more until the questions are ready to be presented ", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -293,6 +296,74 @@ public class MainActivity extends BaseActivity {
             etEmailReg.setText(email);
         } catch (Exception ignored) {}
     }
+
+
+    /**
+     * Sets up clickable links for "Sign up here" and "Forgot Password".
+     * It uses SpannableString to make parts of the text clickable and underlined.
+     * The "Sign up" link navigates to the SignUp activity.
+     * The "Forgot Password" link triggers a Firebase password reset email to be sent
+     * to the email address entered in the email field. It performs validation to ensure
+     * an email has been entered before attempting to send the reset link.
+     */
+    private void setClickableLinks() {
+        // listener for the sign up clickable String
+        ClickableSpan clickableSignUp = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                // Intent to navigate to your SignUpActivity
+                Intent go2SignUp = new Intent(context, SignUp.class);
+                startActivity(go2SignUp);
+            }
+        };
+        // Find the start and end of the clickable text
+        int startIndex = fullTextSignUp.indexOf(clickableTextSignUp);
+        int endIndex = startIndex + clickableTextSignUp.length();
+
+        if (startIndex != -1) {
+            // Apply the clickable span
+            spannableSignUp.setSpan(clickableSignUp, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            // Apply an underline span
+            spannableSignUp.setSpan(new UnderlineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        // Sets the Link in the TextView and Makes the link clickable
+
+        // listener for the Forgot Password clickable String
+        ClickableSpan clickableForgotPassword = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                email = Objects.requireNonNull(etEmailReg.getText()).toString();
+                if (email.isEmpty()) {
+                    tilEmailIn.setError("Email Required");
+                } else {
+                    // Firebase Method to send reset password email
+                    // it is asynchronic so we need a callback on it
+                    // we place a listener on it with a task object
+                    // its either successful or else
+                    mAuth.sendPasswordResetEmail(email)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    // Email sent successfully
+                                    Log.d(TAG, "Email sent.");
+                                    Toast.makeText(context, "Password reset Email sent.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Log.e(TAG, "Failed to send password reset email", task.getException());
+                                    Toast.makeText(context, "Failed to send password reset email.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            }
+        };
+
+        startIndex = fullTextForgotPassword.indexOf(clickableTextForgotPassword);
+        endIndex = startIndex + clickableTextForgotPassword.length();
+
+        if (startIndex != -1) {
+            spannableForgotPassword.setSpan(clickableForgotPassword, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableForgotPassword.setSpan(new UnderlineSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+    }
+
     void initUI() {
         context = this;
         tilEmailIn = findViewById(R.id.tilEmail);

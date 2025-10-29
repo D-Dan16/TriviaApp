@@ -1,13 +1,7 @@
 package stav_gordeev.triviaapp.activities;
 
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+import java.util.List;
 
 import stav_gordeev.triviaapp.Constants;
 import stav_gordeev.triviaapp.Helpers.Question;
@@ -21,11 +15,12 @@ import stav_gordeev.triviaapp.Helpers.User;
  * providing a centralized point of access to shared game state.
  */
 public class GameGlobalsSingleton {
+    private List<Question> questionList;
     private final int levelsInGame;
-    public boolean hasQuestions = false;
     private User currentUser;
 
     private GameGlobalsSingleton(){
+        questionList= new ArrayList<>();
         levelsInGame = Constants.numOfQuestions;
     }
 
@@ -44,48 +39,19 @@ public class GameGlobalsSingleton {
         return SingletonHelper.INSTANCE;
     }
 
-    /**
-     * Synchronously fetches the list of questions from the Firebase Realtime Database.
-     * WARNING: This method BLOCKS the calling thread until the network operation is complete.
-     * It MUST NOT be called from the Android Main/UI thread, or the application will freeze and crash.
-     *
-     * @return An ArrayList of Question objects, or an empty list if the fetch fails.
-     */
-    public ArrayList<Question> getQuestionList() {
-        DatabaseReference questionsRef = FirebaseDatabase.getInstance().getReference("Questions");
-        Task<DataSnapshot> task = questionsRef.get();
-        ArrayList<Question> questionList = new ArrayList<>();
-
-        try {
-            // Block the current thread and wait for the task to complete.
-            DataSnapshot snapshot = Tasks.await(task);
-
-            if (snapshot.exists()) {
-                // Loop through the children (the individual questions) in the snapshot
-                for (DataSnapshot questionSnapshot : snapshot.getChildren()) {
-                    // Convert each snapshot into a Question object
-                    Question question = questionSnapshot.getValue(Question.class);
-                    if (question != null) {
-                        questionList.add(question);
-                    }
-                }
-            }
-        } catch (ExecutionException | InterruptedException e) {
-            // Restore the interrupted status and log the error.
-            Thread.currentThread().interrupt();
-            System.out.println("Error fetching questions synchronously: " + e.getMessage());
-        }
-
+    public List<Question> getQuestionList(){
         return questionList;
     }
 
+    public void setQuestionList(List list){
+        questionList = list;
+    }
 
     public int getLevelsInGame(){
         return levelsInGame;
     }
+
     public void clearQuestionList(){
-        FirebaseDatabase.getInstance().getReference("Questions").removeValue();
-        hasQuestions = false;
+        questionList.clear();
     }
 }
-

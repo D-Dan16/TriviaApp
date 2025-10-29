@@ -7,8 +7,6 @@ import com.google.ai.client.generativeai.java.GenerativeModelFutures;
 import com.google.ai.client.generativeai.type.Content;
 import com.google.ai.client.generativeai.type.GenerateContentResponse;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,9 +21,11 @@ import stav_gordeev.triviaapp.activities.GameGlobalsSingleton;
 public class TriviaQuestionGenerator {
 
     private static final String TAG = "TriviaQuestionGenerator";
-    private static DatabaseReference questionsDBRef;
 
     public static void createQuestionListInBackground(Context context) {
+        //TODO: in order to not spam the AI. temp
+//        if (true) return;
+
         Thread backgroundThread = new Thread(() -> {
             try {
                 GenerativeModelFutures model = GenerativeModelFutures.from(new GenerativeModel(
@@ -43,7 +43,7 @@ public class TriviaQuestionGenerator {
 
                 JSONArray arr = new JSONObject(output).getJSONArray("trivia_questions");
 
-                questionsDBRef = FirebaseDatabase.getInstance().getReference("Questions");
+                List<Question> questionList = new ArrayList<>();
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
@@ -55,11 +55,10 @@ public class TriviaQuestionGenerator {
                             obj.getString("wrong_answer_2"),
                             obj.getString("wrong_answer_3")
                     );
-                    DatabaseReference questionNode = questionsDBRef.child("question_"+(i+1));
-                    questionNode.setValue(q);
+                    questionList.add(q);
                 }
 
-                GameGlobalsSingleton.getInstance().hasQuestions = true;
+                GameGlobalsSingleton.getInstance().setQuestionList(questionList);
 
             } catch (Exception e) {
                 Log.e(TAG, "Error creating question list", e);
