@@ -9,7 +9,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import stav_gordeev.triviaapp.Helpers.MusicService;
-import stav_gordeev.triviaapp.Helpers.User;
 import stav_gordeev.triviaapp.R;
 
 
@@ -121,7 +120,7 @@ public class EditUserProperties extends BaseActivity {
                 return;
             }
 
-            updateFirebaseAuthentication(user, newUsername, newEmail, newPhoneNumber);
+            updateFirebaseAuthentication(user, newUsername, newEmail, newPhoneNumber,newPassword);
         });
 
         bCancelEditProperty.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
@@ -184,10 +183,12 @@ public class EditUserProperties extends BaseActivity {
 
     /**
      * Updates the user's profile and email in Firebase Authentication.
-     * @param user The current FirebaseUser.
+     *
+     * @param user        The current FirebaseUser.
      * @param newUsername The new username.
+     * @param newPassword The new password.
      */
-    private void updateFirebaseAuthentication(FirebaseUser user, String newUsername, String newEmail, String newPhoneNumber) {
+    private void updateFirebaseAuthentication(FirebaseUser user, String newUsername, String newEmail, String newPhoneNumber, String newPassword) {
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(newUsername)
                 .build();
@@ -195,7 +196,6 @@ public class EditUserProperties extends BaseActivity {
         user.updateProfile(profileUpdates).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 // Now update the email
-
                 user.verifyBeforeUpdateEmail(newEmail).addOnCompleteListener(emailTask -> {
                     if (emailTask.isSuccessful()) {
                         // Finally, update the Realtime Database
@@ -204,6 +204,17 @@ public class EditUserProperties extends BaseActivity {
                         Toast.makeText(EditUserProperties.this, "Failed to update email: " + emailTask.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
+
+                // Update the password
+                user.updatePassword(newPassword).addOnCompleteListener(passwordTask -> {
+                    if (passwordTask.isSuccessful()) {
+                        Toast.makeText(EditUserProperties.this, "Password updated successfully!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(EditUserProperties.this, "Failed to update password: " + passwordTask.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
             } else {
                 Toast.makeText(EditUserProperties.this, "Failed to update profile: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
             }
