@@ -30,6 +30,7 @@ import java.util.Map;
 
 public class EditUserProperties extends BaseActivity {
 
+    //region fields
     private EditText usernameEditText, emailEditText, etPhoneEditProperty, etPasswordEditProperty;
     private FloatingActionButton saveButton;
 
@@ -40,6 +41,7 @@ public class EditUserProperties extends BaseActivity {
     private TextInputLayout tilPassword;
     private TextInputLayout tilUserName;
     private TextInputLayout tilPhoneNumber;
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

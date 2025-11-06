@@ -40,9 +40,6 @@
                 android:name=".activities.EditUserProperties"
                 android:exported="false" />
         <activity
-                android:name=".activities.AboutThisApplication"
-                android:exported="false" />
-        <activity
                 android:name=".activities.MainActivity"
                 android:exported="true">
             <intent-filter>

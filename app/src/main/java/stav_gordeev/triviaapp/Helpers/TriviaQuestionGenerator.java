@@ -17,10 +17,26 @@ import java.util.List;
 import stav_gordeev.triviaapp.Constants;
 import stav_gordeev.triviaapp.R;
 
+/**
+ * A helper class responsible for generating a list of trivia questions using the Gemini AI.
+ * This class handles the asynchronous request to the generative model, parses the JSON response,
+ * and populates a list of {@link Question} objects. The generated list is then stored in the
+ * {@link GameGlobalsSingleton} for application-wide access.
+ */
 public class TriviaQuestionGenerator {
 
     private static final String TAG = "TriviaQuestionGenerator";
 
+    /**
+     * Asynchronously generates a list of trivia questions using the Gemini AI model.
+     *
+     * <p>This method runs on a background thread to fetch data from the Gemini API,
+     * parse the JSON response, and create a list of {@link Question} objects.
+     * The resulting list is then stored in the {@link GameGlobalsSingleton}.
+     * Any errors during this process are logged.
+     *
+     * @param context The application context, used for accessing resources like the API key.
+     */
     public static void createQuestionListInBackground(Context context) {
         //TODO: in order to not spam the AI. temp
 //        if (true) return;

@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // --- Pause Music ---
+        // --- Stop Music ---
         Intent playIntent = new Intent(this, MusicService.class);
         playIntent.setAction("STOP");
         startService(playIntent);
