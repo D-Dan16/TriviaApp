@@ -23,7 +23,7 @@ public class TriviaQuestionGenerator {
 
     public static void createQuestionListInBackground(Context context) {
         //TODO: in order to not spam the AI. temp
-        if (true) return;
+//        if (true) return;
 
         Thread backgroundThread = new Thread(() -> {
             try {
