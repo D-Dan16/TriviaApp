@@ -184,8 +184,8 @@ public class Game extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         curTimerCountdown.cancel();
     }
 

@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 import stav_gordeev.triviaapp.Helpers.GameGlobalsSingleton;
+import stav_gordeev.triviaapp.Helpers.MusicService;
 import stav_gordeev.triviaapp.Helpers.User;
 import stav_gordeev.triviaapp.R;
 
@@ -39,6 +40,12 @@ public class DeleteUser extends BaseActivity {
         });
 
         initViews();
+
+        // --- Pause Music ---
+        Intent playIntent = new Intent(this, MusicService.class);
+        playIntent.setAction("PAUSE");
+        startService(playIntent);
+
 
         registerButtons();
     }
