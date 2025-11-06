@@ -70,8 +70,6 @@
 
                     android:hint=""
 
-                    app:helperText="*Required"
-
                     app:helperTextTextColor="#F00726"
 
                     app:startIconDrawable="@drawable/baseline_person_24"
@@ -115,8 +113,6 @@
                     app:counterMaxLength="30"
 
                     android:hint=""
-
-                    app:helperText="*Required"
 
                     app:helperTextTextColor="#F00726"
 

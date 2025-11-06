@@ -3,6 +3,7 @@ package stav_gordeev.triviaapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ public class SignUp extends BaseActivity {
     private static final String TAG = "SignUp";
     // view objects
     TextInputLayout tilEmail, tilPassword, tilUserName;
-    TextInputEditText etEmail, etPassword, etUserName;
+    TextInputEditText etEmail, etPassword, etUserName, etPhoneNumber;
     TextView tvHiddenRules;
     FloatingActionButton fabRegister, fabCancelReg;
     //String Holders
@@ -60,6 +61,12 @@ public class SignUp extends BaseActivity {
 
         SignupButtonLogic();
 
+        //cancel button
+        fabCancelReg.setOnClickListener(v -> {
+            Intent toMenu = new Intent(this, MainActivity.class);
+            startActivity(toMenu);
+        });
+
 
     }  // onCreate
 
@@ -68,8 +75,10 @@ public class SignUp extends BaseActivity {
             String email = Objects.requireNonNull(etEmail.getText()).toString().trim();
             String password = Objects.requireNonNull(etPassword.getText()).toString();
             String userName = Objects.requireNonNull(etUserName.getText()).toString().trim();
+            String phoneNum = Objects.requireNonNull(etPhoneNumber.getText()).toString().trim();
 
-            if (!validateInput(email, password, userName)) {
+
+            if (!validateInput(email, password, userName,phoneNum)) {
                 return;
             }
 
@@ -80,7 +89,7 @@ public class SignUp extends BaseActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser fbUser = mAuth.getCurrentUser();
-                            createUserAndNextActivity(Objects.requireNonNull(fbUser).getUid(), userName);
+                            createUserAndNextActivity(Objects.requireNonNull(fbUser).getUid(), userName,phoneNum);
                         } else {
                             Exception e = task.getException();
                             Log.w(TAG, "createUserWithEmail:failure", e);
@@ -96,15 +105,19 @@ public class SignUp extends BaseActivity {
         });
     }
 
-    private boolean validateInput(String email, String password, String userName) {
+    private boolean validateInput(String email, String password, String userName, String phoneNum) {
         boolean isValid = true;
 
         tilEmail.setError(null);
         tilPassword.setError(null);
         tilUserName.setError(null);
+        etPhoneNumber.setError(null);
 
         if (email.isEmpty()) {
             tilEmail.setError("Email is required.");
+            isValid = false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            tilEmail.setError("Invalid email format.");
             isValid = false;
         }
 
@@ -113,6 +126,11 @@ public class SignUp extends BaseActivity {
             isValid = false;
         } else if (!isValidPassword(password)) {
             tilPassword.setError("Password must be at least 6 characters long and include a letter and a number.");
+            isValid = false;
+        }
+
+        if (phoneNum.length() < 10) {
+            etPhoneNumber.setError("Phone number is too short to be valid.");
             isValid = false;
         }
 
@@ -131,12 +149,13 @@ public class SignUp extends BaseActivity {
      * If the user creation fails, it logs an error and displays a toast message.
      * It also checks if the global question list is ready before starting the game.
      *
-     * @param uid The unique user ID from Firebase Authentication.
+     * @param uid      The unique user ID from Firebase Authentication.
      * @param userName The username provided by the user during sign-up.
+     * @param phoneNum The phone number provided by the user during sign-up.
      */
-    private void createUserAndNextActivity(String uid, String userName){
+    private void createUserAndNextActivity(String uid, String userName, String phoneNum){
         // first create a User object
-        User currentUser = new User(uid, userName);
+        User currentUser = new User(uid, userName,phoneNum);
         // Then write it to firebase. first reference the Realtime Database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         // and reference a new node (leaf) in the tree for the new user
@@ -170,7 +189,7 @@ public class SignUp extends BaseActivity {
      */
     private boolean isValidPassword(String password) {
         // Password must be at least 6 characters long and contain at least one letter and one digit
-        return password.matches(".*[A-Za-z].*") && password.matches(".*\d.*") && password.length() >= 6;
+        return password.matches(".*[A-Za-z].*") && password.matches(".*\\d.*") && password.length() >= 6;
     }
 
 
@@ -178,6 +197,7 @@ public class SignUp extends BaseActivity {
         tilEmail = findViewById(R.id.tilEmail);
         tilPassword = findViewById(R.id.tilPassword);
         tilUserName = findViewById(R.id.tilUserName);
+        etPhoneNumber = findViewById(R.id.etPhoneNumber);
         etEmail = findViewById(R.id.etEmailReg);
         etPassword = findViewById(R.id.etPassword);
         etUserName = findViewById(R.id.etNameReg);

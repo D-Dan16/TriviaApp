@@ -63,34 +63,32 @@
 
                     <com.google.android.material.textfield.TextInputLayout
 
-                        android:id="@+id/tilUserName"
+                            android:id="@+id/tilUserName"
 
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-
-                        android:hint=""
-
-                        app:counterEnabled="true"
-
-                        app:counterMaxLength="30"
-
-                        app:endIconMode="clear_text"
-
-                        app:helperText="*Required"
-
-                        app:helperTextTextColor="#F00726"
-                        app:startIconDrawable="@drawable/baseline_person_24">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/etNameEditProperty"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
                             android:layout_width="match_parent"
 
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+
+                            android:hint=""
+
+                            app:counterEnabled="true"
+
+                            app:counterMaxLength="30"
+
+                            app:endIconMode="clear_text"
+
+                            app:helperTextTextColor="#F00726"
+                            app:startIconDrawable="@drawable/baseline_person_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+                                android:id="@+id/etNameEditProperty"
+
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,34 +106,32 @@
 
                     <com.google.android.material.textfield.TextInputLayout
 
-                        android:id="@+id/tilPassword"
+                            android:id="@+id/tilPassword"
 
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-                        android:layout_width="match_parent"
-
-                        android:layout_height="match_parent"
-
-                        android:hint=""
-
-                        app:counterEnabled="true"
-
-                        app:counterMaxLength="30"
-
-                        app:endIconMode="clear_text"
-
-                        app:helperText="*Required"
-
-                        app:helperTextTextColor="#F00726"
-                        app:startIconDrawable="@drawable/baseline_person_24">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/etPasswordEditProperty"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
                             android:layout_width="match_parent"
 
-                            android:layout_height="wrap_content" />
+                            android:layout_height="match_parent"
+
+                            android:hint=""
+
+                            app:counterEnabled="true"
+
+                            app:counterMaxLength="30"
+
+                            app:endIconMode="clear_text"
+
+                            app:helperTextTextColor="#F00726"
+                            app:startIconDrawable="@drawable/baseline_person_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+                                android:id="@+id/etPasswordEditProperty"
+
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -153,34 +149,32 @@
 
                     <com.google.android.material.textfield.TextInputLayout
 
-                        android:id="@+id/tilPhoneNumber"
+                            android:id="@+id/tilPhoneNumber"
 
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-                        android:layout_width="match_parent"
-
-                        android:layout_height="match_parent"
-
-                        android:hint=""
-
-                        app:counterEnabled="true"
-
-                        app:counterMaxLength="30"
-
-                        app:endIconMode="clear_text"
-
-                        app:helperText="*Required"
-
-                        app:helperTextTextColor="#F00726"
-                        app:startIconDrawable="@drawable/baseline_person_24">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/etPhoneEditProperty"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
                             android:layout_width="match_parent"
 
-                            android:layout_height="wrap_content" />
+                            android:layout_height="match_parent"
+
+                            android:hint=""
+
+                            app:counterEnabled="true"
+
+                            app:counterMaxLength="30"
+
+                            app:endIconMode="clear_text"
+
+                            app:helperTextTextColor="#F00726"
+                            app:startIconDrawable="@drawable/baseline_person_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+                                android:id="@+id/etPhoneEditProperty"
+
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -198,34 +192,32 @@
 
                     <com.google.android.material.textfield.TextInputLayout
 
-                        android:id="@+id/tilEmail"
+                            android:id="@+id/tilEmail"
 
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-                        android:layout_width="match_parent"
-
-                        android:layout_height="match_parent"
-
-                        android:hint=""
-
-                        app:counterEnabled="true"
-
-                        app:counterMaxLength="30"
-
-                        app:endIconMode="clear_text"
-
-                        app:helperText="*Required"
-
-                        app:helperTextTextColor="#F00726"
-                        app:startIconDrawable="@drawable/baseline_person_24">
-
-                        <com.google.android.material.textfield.TextInputEditText
-
-                            android:id="@+id/etEmailEditProperty"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
                             android:layout_width="match_parent"
 
-                            android:layout_height="wrap_content" />
+                            android:layout_height="match_parent"
+
+                            android:hint=""
+
+                            app:counterEnabled="true"
+
+                            app:counterMaxLength="30"
+
+                            app:endIconMode="clear_text"
+
+                            app:helperTextTextColor="#F00726"
+                            app:startIconDrawable="@drawable/baseline_person_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+                                android:id="@+id/etEmailEditProperty"
+
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

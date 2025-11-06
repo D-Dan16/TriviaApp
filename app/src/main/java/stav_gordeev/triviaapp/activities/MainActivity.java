@@ -205,7 +205,7 @@ public class MainActivity extends BaseActivity {
             // You might want to update a specific UI element, e.g., tilEmail.setError(errorMessage);
         } else if (exception instanceof FirebaseAuthInvalidCredentialsException) {
             // The supplied credential (usually password) is wrong.
-            errorMessage = "Incorrect password. Please try again.";
+            errorMessage = "Incorrect password/email. Please try again.";
             Log.e(TAG, "FirebaseAuthInvalidCredentialsException: " + exception.getMessage(), task.getException());
             // You might want to update a specific UI element, e.g., tilPassword.setError(errorMessage);
         } else if (exception instanceof FirebaseNetworkException) {
